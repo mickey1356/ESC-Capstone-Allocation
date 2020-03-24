@@ -130,7 +130,7 @@ class form extends React.Component{
 
             <form action='http://localhost/export/export.php' method='post'>
               <div class="input_field">
-                <input type="submit" value="Students' Application" class="btn" id="submit"/>
+                <input type="submit" value="Students' Application" class="btn" id="submitForm"/>
               </div>
             </form>
 
@@ -156,7 +156,7 @@ class form extends React.Component{
                   <div class="input_field">
                     <label>Type of Prototype:</label>
                     <div className="custom_select">
-                      <select name="prototype">
+                      <select name="prototype" id="prototype">
                         <option value="">Select</option>
                         <option value="web-based">Web-based</option>
                         <option value="software">Software</option>
@@ -167,7 +167,7 @@ class form extends React.Component{
 
                   <div class="input_field">
                     <label>Showcase Space Needed:</label>
-                    <input type="text" class="input" name="showcaseSpace" value={this.state.showcaseSpace} onChange={this.handleChange}/>
+                    <input type="text" class="input" id="showcaseSpace" name="showcaseSpace" value={this.state.showcaseSpace} onChange={this.handleChange}/>
                   </div>
                   <div style={{ fontSize: 12, color: "red" }}>
                     {this.state.showcaseSpaceError}
@@ -175,7 +175,7 @@ class form extends React.Component{
 
                   <div class="input_field">
                     <label>Size and Weight of Physical Prototype:</label>
-                    <input type="text" class="input" name="sizeNweight" value={this.state.sizeNweight} onChange={this.handleChange}/>
+                    <input type="text" class="input" id="sizeNweight" name="sizeNweight" value={this.state.sizeNweight} onChange={this.handleChange}/>
                   </div>
                   <div style={{ fontSize: 12, color: "red" }}>
                     {this.state.sizeNweightError}
@@ -183,7 +183,7 @@ class form extends React.Component{
 
                   <div class="input_field">
                     <label>No of Power Points Needed:</label>
-                    <input type="number" class="input" name="powerpoints" value={this.state.powerpoints} onChange={this.handleChange}/>
+                    <input type="number" class="input" id="powerpoints" name="powerpoints" value={this.state.powerpoints} onChange={this.handleChange}/>
                   </div>
                   <div style={{ fontSize: 12, color: "red" }}>
                     {this.state.powerpointsError}
@@ -191,7 +191,7 @@ class form extends React.Component{
 
                   <div class="input_field">
                     <label>Pedestal(s):</label>
-                    <input type="text" class="input" name="pedestal" value={this.state.pedestal} onChange={this.handleChange}/>
+                    <input type="text" class="input" id="pedestal" name="pedestal" value={this.state.pedestal} onChange={this.handleChange}/>
                   </div>
                   <div style={{ fontSize: 12, color: "red" }}>
                     {this.state.pedestalError}
@@ -199,7 +199,7 @@ class form extends React.Component{
 
                   <div class="input_field">
                     <label>Other Requests:</label>
-                    <textarea class="textarea" name="otherRequest" maxLength="300" value={this.state.otherRequest} onChange={this.handleChange}/>
+                    <textarea class="textarea" id="otherRequest" name="otherRequest" maxLength="300" value={this.state.otherRequest} onChange={this.handleChange}/>
                   </div>
                   <div style={{ fontSize: 12, color: "red" }}>
                     {this.state.otherRequestError}
