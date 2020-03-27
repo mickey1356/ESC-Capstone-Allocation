@@ -1,0 +1,55 @@
+p01,Proj 01 - Attila_Cyber Security,hardware,2,2
+p07,Proj 07 - BCA_Creative and Interactive Communication Platform,hardware,2.5,2.5
+p10,Proj 10 - BCA_Reengineering with Robotics,hardware,3,3
+p11,Proj 11 - Bordeaux_Water Condensation,hardware,3,3
+p12,Proj 12 - Centurion_Traffic Flow and Storage of Bicycles,hardware,2,2
+p13,Proj 13 - Centurion_Smart Mini-Mart,hardware,2,2
+p14,Proj 14 - Citibank_Commercial Banking Relationships,software,2,3
+p15,Proj 15 - CPG_Urban Metabolic Hub,hardware,4,2
+p16,Proj 16 - Dassault_Virtual Twin,hardware,2,2
+p17,Proj 17 - DP Architects_Assisted Bathing Solution,hardware,6,8
+p20,Proj 20 - Esplanade_Empowered Patron,hardware,1.5,1.5
+p21,Proj 21 - Flex_Smart Safety Access Auditor,hardware,3,3
+p22,Proj 22 - Force 21_Birloki System,hardware,4,2
+p24,Proj 24 - Heinz_People Analytics,software,2,1
+p25,Proj 25 - HopeTechnik_Embedded Robotic Officer,hardware,3,5
+p26,Proj 26 - HopeTechnik_Robotic Detector,hardware,2.5,2.5
+p33,Proj 33 - LTA_Cyclist User Alert,hardware,3,3
+p34,Proj 34 - LTA_Drain Covers,hardware,2,2
+p35,Proj 35 - Metta School_Interpersonal Space Awareness,software,5,3
+p38,Proj 38 - MKPL_Innovative Furniture,hardware,4,4
+p39,Proj 39 - MSD_Personalized Drug Design,hardware,2,2
+p40,Proj 40 - MXHL_Machine Learning Algorithms,software,1,1
+p41,Proj 41 - NUS_Pediatric Surgery Neural Network,software,2,2
+p43,Proj 43 - PA_POP-UPHood,hardware,2,2
+p46,Proj 46 - RollsRoyce_Energy Harvesting Wireless Sensor,hardware,2,1
+p47,Proj 47 - RollsRoyce_Spare Parts Onboard Ships,hardware,3.5,3.5
+p49,Proj 49 - Sembcorp_Small Weight Delivery,hardware,3,2
+p50,Proj 50 - SIA_All-Weather Working Shelter,hardware,2.5,2
+p51,Proj 51 - SIA_Premium Passenger Experience,hardware,2.5,1
+p53,Proj 53 - S-Lineage_Breathing Tower,hardware,3,3
+p54,Proj 54 - Sree Narayana_Improving Living Environment,hardware,4,4
+p55,Proj 55 - Sree Narayana_Redesign Residential Facility,hardware,2,2
+p61,Proj 61 - Steelcase_Reduction of Logistics and Packaging Costs,software,3,2
+p62,Proj 62 - TataComm_App Performance Management,software,2,2
+p63,Proj 63 - TataComm_SmartChat,software,1,0.5
+p65,Proj 65 - TVConal_Cricket Broadcast,software,0.5,0.5
+p68,Proj 68 - Weijenberg_Smart Generative Furniture Design,hardware,5,6
+p69,Proj 69 - CGH_Drip Detection Device,hardware,0.5,0.5
+p70,Proj 70 - CGH_Patient Transfer Device,hardware,4,4
+p71,Proj 71 - ASTAR_Pediatric Robotic Pet,hardware,2,2
+p72,Proj 72 - ASTAR_Human Behaviour,software,2,1.5
+e01,Proj E01 - BlackBox,software,3,3
+e02,Proj E02 - Do-Do,hardware,2,2
+e03,Proj E03 - FlexiHome,hardware,3.5,3.5
+f29,Proj F29 - inlingua_Management System,software,0.5,0.5
+f37,Proj F37 - MITRE_Air Traffic Control,hardware,4,3
+s01,Proj S01 - 2359 Media_Percy,software,2,2
+s02,Proj S02 - DSO_Synthetic Aperture Radar,hardware,10,3
+s03,Proj S03 - GIC_Skynet,software,0.5,0.5
+s04,Proj S04 - NHB_Printing Light,hardware,11.5,7
+s05,Proj S05 - Performance Rotors_AEOLUS,hardware,3,3
+s06,Proj S06 - RGA_Mixed Reality Redefines Education,hardware,2,3
+s07,Proj S07 - Shado EV_BLDC Design,hardware,5,5
+s08,Proj S08 - SMRT_ABTUS,hardware,3,3
+s09,Proj S09 - Weijenberg_Reinforced Wood Tower,hardware,2,2
