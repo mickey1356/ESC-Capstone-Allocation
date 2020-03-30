@@ -73,7 +73,7 @@ class Home extends React.Component{
         <header className="Header">
           <img src='https://asset-group.github.io/img/logo.png' alt="logo" height='50'/>
           <br/><br/>
-          <form action="http://localhost/connectlogin.php" onSubmit={this.handleSubmit}>
+          <form action="" onSubmit={this.handleSubmit}>
             <TextField
               className={shouldMarkError("email") ? "error" : ""}
               type="text"

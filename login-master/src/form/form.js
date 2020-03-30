@@ -76,8 +76,7 @@ export default class form extends React.Component {
     this.setState({
       [event.target.name]: isCheckbox
         ? event.target.checked
-        : event.target.value,
-      width: input
+        : event.target.value
     });
   };
 
@@ -233,11 +232,11 @@ export default class form extends React.Component {
               {"\n"} If you have any further enquiries, please contact the Capstone Office. Thank you!</pre>
               </div>
 
-              {/* <form action="http://localhost/export/export.php" method="post">
+              <form action="http://localhost/export/export.php" method="post">
                 <div class="input_field">
                   <input type="submit" value="Students' Application" class="btn" id="submitForm" />
                 </div>
-              </form> */}
+              </form>
             </section>
 
             {/* Form Section*/}

@@ -28,8 +28,12 @@ if (isset($_POST["export"])) {
         <thead class='thread'>
             <tr>
                 <th>Group Name</th>
+                <th>Category</th>
+                <th>Company</th>
                 <th>Prototype</th>
-                <th>Showcase Space</th>
+                <th>Width</th>
+                <th>Breadth</th>
+                <th>Height</th>
                 <th>Size and Weight</th>
                 <th>Powerpoints</th>
                 <th>Pedestal</th>
@@ -47,8 +51,12 @@ if (isset($_POST["export"])) {
                  
                      <tr>
                 <td><?php echo $productResult[$key]["groupName"]; ?></td>
+                <td><?php echo $productResult[$key]["category"]; ?></td>
+                <td><?php echo $productResult[$key]["company"]; ?></td>
                 <td><?php echo $productResult[$key]["prototype"]; ?></td>
-                <td><?php echo $productResult[$key]["showcaseSpace"]; ?></td>
+                <td><?php echo $productResult[$key]["width"]; ?></td>
+                <td><?php echo $productResult[$key]["breadth"]; ?></td>
+                <td><?php echo $productResult[$key]["height"]; ?></td>
                 <td><?php echo $productResult[$key]["sizeNweight"]; ?></td>
                 <td><?php echo $productResult[$key]["powerpoints"]; ?></td>
                 <td><?php echo $productResult[$key]["pedestal"]; ?></td>
