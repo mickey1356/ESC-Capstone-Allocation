@@ -115,6 +115,9 @@ export default class form extends React.Component {
     if (!this.state.otherRequest) {
       otherRequestError = "Other requests cannot be empty";
     }
+    if(this.state.otherRequest > 20){
+      otherRequestError = "Request message exceeds 20 words"
+    }
 
     if (groupNameError || categoryError || companyError || showcaseSpaceError || sizeNweightError || powerpointsError || pedestalError || otherRequestError) {
       this.setState({ groupNameError, categoryError, companyError, showcaseSpaceError, sizeNweightError, powerpointsError, pedestalError, otherRequestError }); //setting the object here

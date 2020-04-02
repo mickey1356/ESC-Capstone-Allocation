@@ -10,8 +10,8 @@ var connection = mysql.createConnection({
 connection.connect(function(err){
     if (err) throw err;
     console.log("Connected!");
-    connection.query("SELECT groupName, width, breadth, height FROM registration", function(err, result, fields){
+    connection.query("SELECT groupName, prototype, category, width, breadth FROM registration", function(err, result){
         if (err) throw err;
         console.log(result);
     })
-})
+});

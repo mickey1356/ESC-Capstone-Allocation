@@ -9,10 +9,8 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err){
     if (err) throw err;
-
-    var initialVal = "Pick";
-    var changedVal = "Picky";
-    var sql = "UPDATE registration SET groupName=" +changedVal+ "WHERE groupName=" +initialVal;
+    
+    var sql = "UPDATE registration SET groupName='Pick' WHERE groupName='Picky'";
     connection.query(sql, function(err, result){
         if (err) throw err;
         console.log(result.affectedRows + "record(s) updated");
