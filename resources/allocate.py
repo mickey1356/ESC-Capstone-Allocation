@@ -120,10 +120,29 @@ class Allocator:
 					self.assign_booth(booth, (i+1,j+1))
 					found = True
 					break
+			# if found:
+			# 	break
+			if not found:
+				print("not found for booth", booth)
+
+	def sorted_allocate(self, path, key = lambda x : x[1].dims):
+		assert self.grid is not None, "Need to call load_grid() first"
+		assert self.booths is not None, "Need to call load_booths() first"
+		assert path is not None, "Provide a valid path"
+
+		# greedy algo from top left to btm right
+		for proj_id, booth in sorted(list(self.booths.items()), key = key):
+			found = False
+			for (i, j) in path:
+				# offset the positions to leave a 0.5m border
+				if self.space_free((i, j), (booth.get_dims()[0]+2, booth.get_dims()[1]+2)):
+					self.assign_booth(booth, (i+1,j+1))
+					found = True
+					break
 				if found:
 					break
 			if not found:
-				print("not found for booth", proj_id)
+				print("not found for booth", self.booths[proj_id])
 
 	# opens a numpy window that shows the space
 	def display(self):
@@ -210,22 +229,21 @@ class Path:
 		plt.show()
 
 
-class Constraint:
-	def __init__(self):
-		pass
-
 def main():
 	allocator = Allocator("space.csv", "booths.csv", 1)
 	allocator.load_grid()
 	allocator.load_booths()
 
 	path = Path(*allocator.get_dims())
-	# path.build_path_tlbr()
-	path.build_path_spiralout(63, 80)
+	path.build_path_tlbr()
+	# path.build_path_spiralout(63, 80)
 
 	# path.display()
 
 	allocator.greedy_allocate(path.get_rep())
+	for booth in allocator.allocation:
+		print(booth.get_id(), allocator.allocation[booth])
+	# allocator.sorted_allocate(path.get_rep())
 
 	allocator.display()
 
