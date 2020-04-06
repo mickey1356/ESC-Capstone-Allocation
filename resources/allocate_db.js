@@ -15,7 +15,7 @@ function setup_allocator(allocator) {
     // });
 }
 
-function get_allocation(allocator, path) {
+function get_allocation(allocator) {
 
     var connection = mysql.createConnection({
         host: 'localhost',
@@ -30,7 +30,7 @@ function get_allocation(allocator, path) {
         if (error) throw error;
         allocator.load_booths_obj(results);
 
-    	allocator.greedy_allocate(path.get_rep());
+    	allocator.allocate();
 
         // UPDATE registration SET posX = posX, posY = posY WHERE id = id
         let data = [];
@@ -56,11 +56,7 @@ function run() {
     // console.log(p);
 
     setup_allocator(allocator);
-
-    let p = new Path(allocator.rows, allocator.cols);
-    p.build_path_spiralout(63, 80, 0, 1);
-
-    get_allocation(allocator, p);
+    get_allocation(allocator);
 }
 
 run();

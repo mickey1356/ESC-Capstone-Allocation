@@ -156,11 +156,14 @@ Allocator.prototype.assign_booth = function(booth, posX, posY) {
 	}
 }
 
-Allocator.prototype.greedy_allocate = function(path) {
+Allocator.prototype.allocate = function() {
+    let p = new Path(this.rows, this.cols);
+    p.build_path_spiralout(63, 80, 0, 1);
+
 	for (let booth_id in this.booths) {
 		let booth = this.booths[booth_id];
 		found = false;
-		for (let loc of path) {
+		for (let loc of p.get_rep()) {
 			let i = loc[0];
 			let j = loc[1];
 
