@@ -1,81 +1,77 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
-
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
 }
 
-/*------Navigation Bar------*/
-#nav-bar
-{
+
+/*------Navigation Bar Section------*/
+
+#nav-bar {
     position: sticky;
     top: 0;
     z-index: 10;
 }
 
-.navbar-nav li
-{
+#navbarSupportedContent img{
+    max-width: 100%;
+    height: 50px;
+}
+
+.navbar-nav li {
     padding: 0 10px;
 }
-.navbar-nav li a
-{
+
+.navbar-nav li a {
     float: right;
     text-align: left;
     color: #fff!important;
 }
-#nav-bar ul li a:hover
-{
+
+#nav-bar ul li a:hover {
     color: #007bff!important;
 }
-.navbar
-{
+
+.navbar {
     background: #333;
 }
-.navbar-toggler
-{
+
+.navbar-toggler {
     border: none!important;
 }
-.nav-link
-{
+
+.nav-link {
     color: #555!important;
     font-weight: 600;
     font-size: 16px;
 }
 
-.home{
-    padding: 50px;  
+/*------Form Section------*/
+
+.home {
+    padding: 30px;
     height: 100%;
     width: 100%;
     text-align: center;
 }
 
-.home img {
-    max-width: 100%;
-    height: 200px;
-    padding-top: 12px;
-}
-
-.rows .wrapper{
-    display: inline-block;
-}
-
-.forms{
+.forms {
     background: #fec;
     padding: 30px;
 }
 
-.wrapper{
-    max-width: 500px;
+.wrapper {
+    max-width: 600px;
     width: 100%;
     background: #fff;
     margin: auto;
     padding: 30px;
-    box-shadow: 2px 2px rgba(0,0,0,0.125);
+    box-shadow: 2px 2px rgba(0, 0, 0, 0.125);
 }
 
-.wrapper .title{
+.wrapper .title {
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 20px;
@@ -83,71 +79,35 @@
     text-align: center;
 }
 
-
-/* Modal Section */
-.modal {
-    font-size: 12px;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    padding-top: 12px;
-}
-
-.modal > .header {
-    width: 100%;
-    border-bottom: 1px solid gray;
-    font-size: 18px;
-    text-align: center;
-    padding: 5px;
-}
-.modal > .content {
-    width: 100%;
-    padding: 10px 5px;
-}
-.modal > .actions {
-    width: 100%;
-    padding: 10px 5px;
-    margin: auto;
-    text-align: center;
-}
-.modal > .close {
-    cursor: pointer;
-    position: absolute;
-    display: block;
-    padding: 2px 5px;
-    line-height: 20px;
-    right: -10px;
-    top: -10px;
-    font-size: 24px;
-    background: #ffffff;
-    border-radius: 18px;
-    border: 1px solid #cfcece;
-    transform: rotate(45deg);
-}
-
-/* Form Details */
-.wrapper .form{
+.wrapper .form {
     width: 100%;
 }
 
-.wrapper .form .input_field{
+.wrapper .form .input_field {
     margin-top: 15px;
     margin-bottom: 15px;
     display: flex;
     align-items: center;
 }
 
-.wrapper .form .input_field label{
+.wrapper .form .input_field label {
     width: 200px;
     color: #757575;
     margin-right: 10px;
     font-size: 14px;
+    font-weight: bold;
+}
+
+.wrapper .form .input_field_showcase label {
+    width: 140px;
+    color: #757575;
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .wrapper .form .input_field .input,
-.wrapper .form .input_field .textarea{
+.wrapper .form .input_field .textarea {
     width: 100%;
     outline: none;
     border: 1px solid #d5dbd9;
@@ -157,18 +117,28 @@ img {
     transition: all 0.3s ease;
 }
 
-.wrapper .form .input_field .textarea{
-    resize: none;
-    height: 125px;    
+.wrapper .form .input_field_showcase .input{
+    width: 18.8%;
+    outline: none;
+    border: 1px solid #d5dbd9;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
 }
 
-.wrapper .form .input_field .custom_select{
+.wrapper .form .input_field .textarea {
+    resize: none;
+    height: 125px;
+}
+
+.wrapper .form .input_field .custom_select {
     position: relative;
     width: 100%;
     height: 37px;
 }
 
-.wrapper .form .input_field .custom_select select{
+.wrapper .form .input_field .custom_select select {
     -webkit-appearance: none;
     appearance: none;
     border: 1px solid #d5dbd9;
@@ -179,7 +149,7 @@ img {
     outline: none;
 }
 
-.wrapper .form .input_field .custom_select:before{
+.wrapper .form .input_field .custom_select:before {
     content: "";
     position: absolute;
     top: 12px;
@@ -191,11 +161,11 @@ img {
 
 .wrapper .form .input_field .input:focus,
 .wrapper .form .input_field .textarea:focus,
-.wrapper .form .input_field select:focus{
-    border: 1px solid #fec107 ;
+.wrapper .form .input_field select:focus {
+    border: 1px solid #fec107;
 }
 
-.wrapper .form .input_field .btn{
+.wrapper .form .input_field .btn {
     width: 100%;
     padding: 8px 10px;
     font-size: 15px;
@@ -207,26 +177,28 @@ img {
     outline: none;
 }
 
-.wrapper .form .input_field:last-child{
+.wrapper .form .input_field:last-child {
     margin-bottom: 0;
 }
 
-.wrapper .form .input_field .btn:hover{
+.wrapper .form .input_field .btn:hover {
     background: #ffd658;
 }
 
-@media (max-width: 420px){
-    .wrapper .form .input_field{
+@media (max-width: 420px) {
+    .wrapper .form .input_field {
         flex-direction: column;
         align-items: flex-start;
     }
-    .wrapper .form .input_field label{
+    .wrapper .form .input_field label {
         margin-bottom: 5px;
     }
 }
 
-#contact
-{
+
+/*------Contact Section------*/
+
+#contact {
     background: #333;
     color: #fff;
     padding: 12px;

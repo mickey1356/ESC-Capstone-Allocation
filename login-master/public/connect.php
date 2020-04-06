@@ -1,7 +1,11 @@
 <?php
     $groupName = $_POST['groupName']; // sending data using post to php
     $prototype = $_POST['prototype'];
-    $showcaseSpace = $_POST['showcaseSpace'];
+    $category = $_POST['category'];
+    $company = $_POST['company'];
+    $width = $_POST['width'];
+    $breadth = $_POST['breadth'];
+    $height = $_POST['height'];
     $sizeNweight = $_POST['sizeNweight'];
     $powerpoints = $_POST['powerpoints'];
     $pedestal = $_POST['pedestal'];
@@ -12,9 +16,9 @@
     if($conn->connect_error){
         die('Connection Failed: '.$conn->connect_error);
     }else{
-        $stmt = $conn->prepare("insert into registration(groupName, prototype, showcaseSpace, sizeNweight, powerpoints, pedestal, otherRequest)
-            values(?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssiss", $groupName, $prototype, $showcaseSpace, $sizeNweight, $powerpoints, $pedestal, $otherRequest);
+        $stmt = $conn->prepare("insert into registration(groupName, prototype, category, company, width, breadth, height, sizeNweight, powerpoints, pedestal, otherRequest)
+            values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssssiss", $groupName, $prototype, $category, $company, $width, $breadth, $height, $sizeNweight, $powerpoints, $pedestal, $otherRequest);
         $stmt->execute();
         echo "registration successful...";
         $stmt->close();
