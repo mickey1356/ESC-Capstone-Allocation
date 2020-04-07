@@ -6,7 +6,6 @@ import '@geoman-io/leaflet-geoman-free';
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
 import mappic from './spaceupdat.jpg';
 import { object } from 'prop-types';
-import axios from 'axios'
 
 const Wrapper = styled.div`
     width: $(props => props.width);
@@ -23,20 +22,35 @@ export default class Maps extends React.Component{
         this.state = ({
             boothID: '',
             width: '',
-            breadth: '',
-            ready: '',
+            height: '',
             entries: [],
             dimensions: {},
         });
         this.handleChange = this.handleChange.bind(this);
+        this.handleChange1 = this.handleChange1.bind(this);
       }
-    handleChange(evt){
-        this.setState({[evt.target.name]: evt.target.value})
+    handleChange(e){
+        //this.setState({[evt.target.name]: evt.target.value})
+        this.setState({
+            [e.target.name]: e.target.name === 'width' || 'height' ? parseInt(e.target.value) : e.target.value,
+            });
+        
+    }
+    handleChange1(evt){
+        this.setState({[evt.target.name]: evt.target.value});
     }
     handleSubmit = event => {
         event.preventDefault()
-        this.setState({ready: "yes"});
-        alert([this.state.width, this.state.breadth, this.state.boothID]);
+        console.log(this.state)
+        this.setState({
+            dimensions:{ 
+                ...this.state.dimensions, [this.state.boothID]:
+                [[this.state.dimensions[this.state.boothID][0][0], this.state.dimensions[this.state.boothID][0][1]], [this.state.width, this.state.height]]
+            }}, () => {
+                this.addProduct(this.state.boothID);
+                console.log(this.state.dimensions[this.state.boothID])
+              }); 
+       
     }
     //L.rectangle([[Number(this.state.height), Number(this.state.width)],[55,110]]));
     getProducts = _ => {
@@ -45,9 +59,16 @@ export default class Maps extends React.Component{
         .then(response => this.setState({entries: response.data}))
         .catch(err => console.error(err))
         
-    }
+    };
     
+    addProduct = _ => {
+        fetch(`http://localhost:3535/registration/update?id="${this.state.boothID}"&width=${this.state.dimensions[this.state.boothID][1][0]}&height=${this.state.dimensions[this.state.boothID][1][1]}&PosX=${this.state.dimensions[this.state.boothID][0][0]}&PosY=${this.state.dimensions[this.state.boothID][0][1]}`)
+        .then(response => response.json())
+        .then(this.getProducts)
+        .then(alert("Updated Successfully"))
+        .catch(err => console.error(err))
 
+    };
 
     componentDidMount(){
         this.getProducts();
@@ -57,7 +78,7 @@ export default class Maps extends React.Component{
                     this.setState({
                         dimensions:{ 
                             ...this.state.dimensions, [this.state.entries[key]["id"]]:
-                            [[this.state.entries[key]["PosX"], this.state.entries[key]["PosY"]], [this.state.entries[key]["height"], this.state.entries[key]["width"]]]
+                            [[this.state.entries[key]["PosX"], this.state.entries[key]["PosY"]], [this.state.entries[key]["width"], this.state.entries[key]["height"]]]
                         }
                         
                     })
@@ -159,12 +180,12 @@ export default class Maps extends React.Component{
                         Booth ID: 
                     </label>
                     <input 
-                    type="text" name="boothID" onChange={this.handleChange}/>
+                    type="text" name="boothID" onChange={this.handleChange1}/>
                     <label>
                         Breadth: 
                     </label>
                     <input
-                    type="text" name="breadth" onChange={this.handleChange}/>
+                    type="text" name="height" onChange={this.handleChange}/>
                     <label>
                         Width: 
                     </label>

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import "./App.css";
 import Maps from "./Map";
+import {Link} from 'react-router-dom'
 import styled from 'styled-components';
 
 // const run = require('./allocate_db.js');
@@ -54,12 +55,13 @@ export default class App extends React.Component{
                       Run Algorithm
                     </button>
                     </form>
-                    <button>
-                      Allocate Slots
-                    </button>
-                    <button>
-                      View Database
-                    </button>
+                    <button
+                        type="button"
+                        onClick={(e): void =>  {
+                          e.preventDefault();
+                          window.location.href='http://localhost:3535/registration';
+                          }}
+                    > Access Databse</button>
                     <Maps />
                 </AppWrapper>
             </div>

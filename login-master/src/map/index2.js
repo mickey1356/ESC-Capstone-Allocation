@@ -34,6 +34,21 @@ connection.connect(function(err){
 
 app.use(cors());
 
+app.get('/registration/update', (req,res) => {
+    const{id, width, height, PosX, PosY} = req.query;
+    const INSERT_REGISTRATION_QUERY = 
+    `UPDATE registration SET PosX=${PosX}, PosY=${PosY}, width=${width}, height=${height} WHERE id=${id}`;
+    connection.query(INSERT_REGISTRATION_QUERY, (err, results) =>{
+        if(err){
+            return res.send(err)
+        }
+        else{
+            return res.send('successfully updated booth')
+        }
+    });
+
+})
+
 app.get('/registration/add', (req,res) =>{
     const{id, groupName, prototype, category, company, width, height, sizeNweight, powerpoints,
         pedestal, otherRequest, PosX, PosY, level} = req.query;
