@@ -7,6 +7,7 @@ import Database from './database/database';
 import createAccount from './pages/createAccount';
 import adminLogin from './pages/adminLogin';
 import adminAddAccount from './pages/adminAddAccount';
+import map from './map/App';
 
 const Main = () => {
   return (
@@ -18,6 +19,7 @@ const Main = () => {
       <Route exact path='/changePassword' component={changePassword}></Route>
       <Route exact path='/adminLogin' component={adminLogin}></Route>
       <Route exact path='/adminAddAccount' component={adminAddAccount}></Route>
+      <Route exact path='/map' component={map}></Route>
     </Switch>
   );
 }

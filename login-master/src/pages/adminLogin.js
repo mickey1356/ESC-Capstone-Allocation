@@ -98,33 +98,33 @@ class Home extends React.Component{
           <text>Admin Login</text>
           <br/><br/>
           <form onSubmit={this.handleSubmit}>
-            <form onSubmit={this.checklogin}>
-              <TextField
-                id="email"
-                className={shouldMarkError("email") ? "error" : ""}
-                type="text"
-                placeholder="Enter email"
-                value={this.state.email}
-                onChange={this.handleEmailChange}
-                onBlur={this.handleBlur("email")}
-                variant='outlined'
-              />
-              <br/> <br/>
-              <TextField
-                id="password"
-                className={shouldMarkError("password") ? "error" : ""}
-                type="password"
-                placeholder="Enter password"
-                value={this.state.password}
-                onChange={this.handlePasswordChange}
-                onBlur={this.handleBlur("password")}
-                variant='outlined'
-              />
-              <br/> <br/>
-              <Button disabled={isDisabled} component={Link} to='./adminAddAccount' variant='contained' style={{width:'100%'}}>
+            <TextField
+              id="email"
+              className={shouldMarkError("email") ? "error" : ""}
+              type="text"
+              placeholder="Enter email"
+              value={this.state.email}
+              onChange={this.handleEmailChange}
+              onBlur={this.handleBlur("email")}
+              variant='outlined'
+            />
+            <br/> <br/>
+            <TextField
+              id="password"
+              className={shouldMarkError("password") ? "error" : ""}
+              type="password"
+              placeholder="Enter password"
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
+              onBlur={this.handleBlur("password")}
+              variant='outlined'
+            />
+            <br/> <br/>
+            <Link to="/map">
+              <Button disabled={isDisabled} component={Link} to='/map' variant='contained' style={{width:'100%'}}>
                 Login
               </Button>
-            </form>
+            </Link>
           </form >
           <br/><br/>
           <Button component={Link} to='./'>Student Login</Button>
