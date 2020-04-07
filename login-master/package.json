@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
     "chromedriver": "^80.0.1",
+    "emailjs-com": "^2.4.1",
     "geckodriver": "^1.19.1",
     "mysql": "^2.18.1",
     "react": "^16.12.0",

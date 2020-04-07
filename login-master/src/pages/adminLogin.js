@@ -4,9 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
-var login_attempts=3;
-var bool = "true";
-
 function validate(email, password) {
   // true means invalid, so our conditions got reversed
   return {
@@ -46,8 +43,6 @@ class Home extends React.Component{
   };
 
   handleSubmit = evt => {
-    //evt.preventDefault();
-    console.log("hello");
     if (!this.canBeSubmitted()) {
       evt.preventDefault();
       return;
@@ -62,43 +57,27 @@ class Home extends React.Component{
     return !isDisabled;
   }
 
-  checklogin = evt => { 
+  checklogin(){
+    var login_attempts=3;
     var email=document.getElementById("email").value;
     var password=document.getElementById("password").value;
-    // AJAX CALL
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', "http://localhost/loginCheck.php?email=" + email, true);
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        bool = this.responseText;
-        console.log(bool);
-      }
-    };
-    xhr.send();
-
-    if(bool === "true"){
+    if(email==="admin@gmail.com" && password==="password"){
       alert("Successfully Logged In");
-      console.log("successful attempt");
-      this.props.history.push('/form')
-      return
+      document.getElementById("email").value="";
+      document.getElementById("password").value="";
     } else {
       if (login_attempts===0){
-        evt.preventDefault();
-        console.log("unsuccessful attempt");
         alert("No login attempts available");
-        return
       } else {
-        evt.preventDefault();
-        console.log("unsuccessful attempt");
         login_attempts=login_attempts-1;
         alert("Login failed, only "+login_attempts+" login attempts available");
         if(login_attempts===0){
           document.getElementById("email").disabled=true;
           document.getElementById("password").disabled=true;
         }
-        return
       }
     }
+    return false;
   }
 
   render(){
@@ -116,12 +95,12 @@ class Home extends React.Component{
       <div className="Background">
         <header className="Header">
           <img src='https://asset-group.github.io/img/logo.png' alt="logo" height='50'/>
+          <text>Admin Login</text>
           <br/><br/>
-            <form action="http://localhost/loginCheck.php" onSubmit ={this.handleSubmit} method="post">
-            {/* <form onSubmit ={this.handleSubmit && this.checklogin} > */}
+          <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.checklogin}>
               <TextField
                 id="email"
-                name="email"
                 className={shouldMarkError("email") ? "error" : ""}
                 type="text"
                 placeholder="Enter email"
@@ -133,7 +112,6 @@ class Home extends React.Component{
               <br/> <br/>
               <TextField
                 id="password"
-                name="password"
                 className={shouldMarkError("password") ? "error" : ""}
                 type="password"
                 placeholder="Enter password"
@@ -143,19 +121,13 @@ class Home extends React.Component{
                 variant='outlined'
               />
               <br/> <br/>
-              
-              <button type = "submit" disabled={isDisabled} variant='contained' style={{width:'100%'}}>
+              <Button disabled={isDisabled} component={Link} to='./adminAddAccount' variant='contained' style={{width:'100%'}}>
                 Login
-              </button>
+              </Button>
             </form>
-          <br/>
-          <div style={{flexDirection:'row'}}>
-            <text>Not registered?</text>
-            <Button component={Link} to='./createAccount'>
-              Create Account
-            </Button>
-          </div>
-          <Button component={Link} to='./adminLogin'>Admin Login</Button>
+          </form >
+          <br/><br/>
+          <Button component={Link} to='./'>Student Login</Button>
         </header>
       </div>
     );
