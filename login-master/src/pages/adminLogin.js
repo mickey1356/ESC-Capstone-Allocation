@@ -4,6 +4,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
+var login_attempts=3;
+var bool;
+
 function validate(email, password) {
   // true means invalid, so our conditions got reversed
   return {
@@ -57,28 +60,47 @@ class Home extends React.Component{
     return !isDisabled;
   }
 
-  checklogin(){
-    var login_attempts=3;
+  checklogin = evt => { 
     var email=document.getElementById("email").value;
     var password=document.getElementById("password").value;
-    if(email==="admin@gmail.com" && password==="password"){
+    var data = new FormData();
+    data.append("email", email);
+    data.append("password", password);
+    // AJAX CALL
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "http://localhost/loginCheckAdmin.php", false);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        bool = this.responseText;
+        console.log(bool);
+      }
+    };
+    xhr.send(data);
+
+    if(bool === "true"){
       alert("Successfully Logged In");
-      document.getElementById("email").value="";
-      document.getElementById("password").value="";
+      console.log("successful attempt");
+      this.props.history.push('/map')
+      return
     } else {
       if (login_attempts===0){
+        evt.preventDefault();
+        console.log("unsuccessful attempt");
         alert("No login attempts available");
+        return
       } else {
+        evt.preventDefault();
+        console.log("unsuccessful attempt");
         login_attempts=login_attempts-1;
         alert("Login failed, only "+login_attempts+" login attempts available");
         if(login_attempts===0){
           document.getElementById("email").disabled=true;
           document.getElementById("password").disabled=true;
         }
+        return
       }
     }
-    return false;
-  }
+  };
 
   render(){
     const errors = validate(this.state.email, this.state.password);
@@ -97,7 +119,7 @@ class Home extends React.Component{
           <img src='https://asset-group.github.io/img/logo.png' alt="logo" height='50'/>
           <text>Admin Login</text>
           <br/><br/>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.checklogin}>
             <TextField
               id="email"
               className={shouldMarkError("email") ? "error" : ""}
@@ -120,11 +142,9 @@ class Home extends React.Component{
               variant='outlined'
             />
             <br/> <br/>
-            <Link to="/map">
-              <Button disabled={isDisabled} component={Link} to='/map' variant='contained' style={{width:'100%'}}>
-                Login
-              </Button>
-            </Link>
+            <button type = "submit" id="submit" disabled={isDisabled} variant='contained' style={{width:'100%'}}>
+              Login
+            </button>
           </form >
           <br/><br/>
           <Button component={Link} to='./'>Student Login</Button>

@@ -11,6 +11,7 @@ import sutdLogo from "./sutdLogo.png";
 
 //Form input initial state
 const initialState = {
+  id: "",
   groupName: "",
   category: "",
   company: "",
@@ -82,6 +83,7 @@ export default class form extends React.Component {
 
   validate = () => {
     //error messages
+    let idError = "";
     let groupNameError = "";
     let categoryError = "";
     let companyError = "";
@@ -91,6 +93,9 @@ export default class form extends React.Component {
     let pedestalError = "";
     let otherRequestError = "";
 
+    if (!this.state.id) {
+      idError = "Group ID cannot be empty";
+    }
     if (!this.state.groupName) {
       groupNameError = "Group Name cannot be empty";
     }
@@ -119,8 +124,8 @@ export default class form extends React.Component {
       otherRequestError = "Request message exceeds 20 words"
     }
 
-    if (groupNameError || categoryError || companyError || showcaseSpaceError || sizeNweightError || powerpointsError || pedestalError || otherRequestError) {
-      this.setState({ groupNameError, categoryError, companyError, showcaseSpaceError, sizeNweightError, powerpointsError, pedestalError, otherRequestError }); //setting the object here
+    if (idError || groupNameError || categoryError || companyError || showcaseSpaceError || sizeNweightError || powerpointsError || pedestalError || otherRequestError) {
+      this.setState({idError, groupNameError, categoryError, companyError, showcaseSpaceError, sizeNweightError, powerpointsError, pedestalError, otherRequestError }); //setting the object here
       return false;
     }
 
@@ -141,28 +146,6 @@ export default class form extends React.Component {
     } else {
       event.preventDefault();
     }
-
-    // fetch('/database', { 
-    //   method: 'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     groupName: this.state.groupName,
-    //     prototype: this.state.prototype,
-    //     category: this.state.category,
-    //     company: this.state.company,
-    //     showcaseSpace: this.state.showcaseSpace,
-    //     sizeNweight: this.state.sizeNweight,
-    //     powerpoints: this.state.powerpoints,
-    //     pedestal: this.state.pedestal,
-    //     otherRequest: this.state.otherRequest
-    //   })
-    // })
-    // .then(res => res.json())
-    // .then(data => console.log(data))
-    // .catch(err => console.log(err))
   };
 
   render() {
@@ -252,7 +235,23 @@ export default class form extends React.Component {
 
                 <div className="form">
                   <form name="myForm" action="http://localhost/connect.php" onSubmit={this.handleSubmit} method="post">
-                  {/* <form name="myForm" action="/database" onSubmit={this.handleSubmit} method="post"> */}
+
+                  <div class="input_field">
+                      <label>Group ID:</label>
+                      <input 
+                        type="text" 
+                        className="input" 
+                        id="id" 
+                        name="id"
+                        ref="id"
+                        placeholder="Enter your Group ID"
+                        value={this.state.id} 
+                        onChange={this.handleChange} 
+                      />
+                    </div>
+                    <div style={{ fontSize: 12, color: "red" }}>
+                      {this.state.idError}
+                    </div>
 
                     <div class="input_field">
                       <label>Group Name:</label>

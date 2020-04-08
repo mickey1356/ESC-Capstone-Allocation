@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
 var login_attempts=3;
-var bool = "true";
+var bool;
 
 function validate(email, password) {
   // true means invalid, so our conditions got reversed
@@ -65,16 +65,19 @@ class Home extends React.Component{
   checklogin = evt => { 
     var email=document.getElementById("email").value;
     var password=document.getElementById("password").value;
+    var data = new FormData();
+    data.append("email", email);
+    data.append("password", password);
     // AJAX CALL
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', "http://localhost/loginCheck.php?email=" + email, true);
+    xhr.open('POST', "http://localhost/loginCheck.php", false);
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
         bool = this.responseText;
         console.log(bool);
       }
     };
-    xhr.send();
+    xhr.send(data);
 
     if(bool === "true"){
       alert("Successfully Logged In");
@@ -99,7 +102,7 @@ class Home extends React.Component{
         return
       }
     }
-  }
+  };
 
   render(){
     const errors = validate(this.state.email, this.state.password);
@@ -117,8 +120,7 @@ class Home extends React.Component{
         <header className="Header">
           <img src='https://asset-group.github.io/img/logo.png' alt="logo" height='50'/>
           <br/><br/>
-            <form action="http://localhost/loginCheck.php" onSubmit ={this.handleSubmit} method="post">
-            {/* <form onSubmit ={this.handleSubmit && this.checklogin} > */}
+            <form onSubmit ={this.checklogin}>
               <TextField
                 id="email"
                 name="email"
@@ -143,8 +145,7 @@ class Home extends React.Component{
                 variant='outlined'
               />
               <br/> <br/>
-              
-              <button type = "submit" disabled={isDisabled} variant='contained' style={{width:'100%'}}>
+              <button type = "submit" id="submit" disabled={isDisabled} variant='contained' style={{width:'100%'}}>
                 Login
               </button>
             </form>

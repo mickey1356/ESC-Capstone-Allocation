@@ -50,18 +50,25 @@ export default class App extends React.Component{
                     SUTD Capstone Campus Map
                 </Title>
                 <AppWrapper>
+                    <Link to="/adminAddAccount">
+                      <button>Add Admin</button>
+                    </Link>
+                    <Link to="/adminLogin">
+                      <button className="btnLogout" id="btnLogout" color="white">LOGOUT</button>
+                    </Link>
                     <form onSubmit={this.handleSubmit}>
-                    <button type="submit">
+                    <button type="submit" id="runalgo">
                       Run Algorithm
                     </button>
                     </form>
                     <button
                         type="button"
+                        id="accessdb"
                         onClick={(e): void =>  {
                           e.preventDefault();
                           window.location.href='http://localhost:3535/registration';
                           }}
-                    > Access Databse</button>
+                    > Access Database</button>
                     <Maps />
                 </AppWrapper>
             </div>

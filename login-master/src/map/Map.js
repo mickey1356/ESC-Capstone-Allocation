@@ -180,18 +180,18 @@ export default class Maps extends React.Component{
                         Booth ID: 
                     </label>
                     <input 
-                    type="text" name="boothID" onChange={this.handleChange1}/>
+                    type="text" name="boothID" id="boothID" onChange={this.handleChange1}/>
                     <label>
                         Breadth: 
                     </label>
                     <input
-                    type="text" name="height" onChange={this.handleChange}/>
+                    type="text" name="height" id="height" onChange={this.handleChange}/>
                     <label>
                         Width: 
                     </label>
                     <input
-                    type="text" name="width" onChange={this.handleChange}/>
-                    <button type="submit">Submit</button>
+                    type="text" name="width" id="width" onChange={this.handleChange}/>
+                    <button type="submit" id="changebtn">Submit</button>
                 </form>
                 
                 <Wrapper width="512px" height="512px" id="map" />
