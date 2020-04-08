@@ -23,7 +23,7 @@ const initialState = {
   otherRequest: ""
 }
 
-//Loading page
+//Loading screen
 const defaultOptions = {
   loop: true,
   autoplay: true,
@@ -45,7 +45,7 @@ const defaultOptions2 = {
 
 export default class form extends React.Component {
 
-  //Loading page
+  //Loading screen
   constructor(props) {
     super(props);
     this.state = {
@@ -219,7 +219,10 @@ export default class form extends React.Component {
                     </li>
                   </ul>
                   <Link to="/">
-                    <text className="btnLogout" color="white">LOGOUT</text>
+                    <button className="btnLogout" color="white">LOGOUT</button  >
+                  </Link>
+                  <Link to="/changePassword">
+                    <button className="btnChangePw" color="white">CHANGE PASSWORD</button  >
                   </Link>
                 </div>
 

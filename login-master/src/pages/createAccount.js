@@ -4,6 +4,7 @@ import { FormErrors } from './formErrors';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
+import emailjs from 'emailjs-com';
 
 class createAccount extends Component {
   constructor (props) {
@@ -12,12 +13,11 @@ class createAccount extends Component {
       studentID:'',
       email: '',
       groupName:'',
-      password: '',
-      formErrors: {studentID:'', email: '', groupName:'', password: ''},
+      password: Math.random()*100000 | 0,
+      formErrors: {studentID:'', email: '', groupName:''},
       studentIDValid: false,
       emailValid: false,
       groupNameValid: false,
-      passwordValid: false,
       formValid: false
     }
   }
@@ -34,7 +34,6 @@ class createAccount extends Component {
     let studentIDValid = this.state.studentIDValid;
     let emailValid = this.state.emailValid;
     let groupNameValid = this.state.groupNameValid;
-    let passwordValid = this.state.passwordValid;
 
     switch(fieldName) {
       case 'studentID':
@@ -42,16 +41,12 @@ class createAccount extends Component {
         fieldValidationErrors.studentID = studentIDValid ? '': ' is not valid';
         break;
       case 'email':
-        emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-        fieldValidationErrors.email = emailValid ? '' : ' is invalid';
+        emailValid = value.match(/^([\w.%+-]+)@(mymail.sutd.edu.sg)$/i);
+        fieldValidationErrors.email = emailValid ? '' : ' is invalid, please use your school email';
         break;
       case 'groupName':
         groupNameValid = value.length > 0;
         fieldValidationErrors.groupName = groupNameValid ? '': ' is not valid';
-        break;
-      case 'password':
-        passwordValid = value.length >= 6;
-        fieldValidationErrors.password = passwordValid ? '': ' is too short';
         break;
       default:
         break;
@@ -60,16 +55,28 @@ class createAccount extends Component {
       studentIDValid: studentIDValid,
       emailValid: emailValid,
       groupNameValid: groupNameValid,
-      passwordValid: passwordValid
     }, this.validateForm);
   }
 
   validateForm() {
-    this.setState({formValid: this.state.studentIDValid && this.state.emailValid && this.state.groupNameValid && this.state.passwordValid});
+    this.setState({formValid: this.state.studentIDValid && this.state.emailValid && this.state.groupNameValid});
   }
 
   errorClass(error) {
     return(error.length === 0 ? '' : 'has-error');
+  }
+
+  sendEmail = () => {
+    var template_params = {
+      "email": this.state.email,
+      "groupName": this.state.groupName,
+      "password": this.state.password 
+   }
+
+    var service_id = "gmail";
+    var template_id = "template_wyiwqdxd";
+    var user_id = "user_CBEFF7EPbL1I4OdtdZnki"
+    emailjs.send(service_id, template_id, template_params, user_id);
   }
 
   render () {
@@ -78,7 +85,7 @@ class createAccount extends Component {
         <header className='Header'>
           <img src='https://asset-group.github.io/img/logo.png' alt="logo" height='50'/>
           <br/><br/>
-          <form action="http://localhost/connectlogin.php" method="post">
+          <form action="http://localhost/connectlogin.php" onSubmit={this.sendEmail} method="post">
             <div className={`form-group ${this.errorClass(this.state.formErrors.studentID)}`}>
               <TextField
                 type="studentID" required className="form-control" name="studentID" variant='outlined'
@@ -109,9 +116,9 @@ class createAccount extends Component {
             </div>
             <br/>
             
-            <div className={`form-group ${this.errorClass(this.state.formErrors.password)}`}>
+            <div>
               <TextField
-                type="password" className="form-control" name="password" variant='outlined'
+                type="hidden" className="form-control" name="password" variant='outlined'
                 placeholder="Password"
                 value={this.state.password}
                 onChange={this.handleUserInput}
@@ -123,13 +130,12 @@ class createAccount extends Component {
             </div>
 
             <br/>
-            {/* <Button type="submit" disabled={!this.state.formValid} variant='contained' style={{width:'100%'}} component={Link} to='./form'>Register</Button> */}
-            <Button type="submit" disabled={!this.state.formValid} variant='contained' style={{width:'100%'}}>Register</Button>
+            <button type="submit" name="submitbtn" disabled={!this.state.formValid} variant='contained' style={{width:'100%'}} component={Link} to='./form'>Register</button>
           </form>
-          <br/><br/>
+          <br/>
           <div style={{flexDirection:'row'}}>
-            <text>Registered?</text>
-            <Button component={Link} to='/'>
+            <text>Already have an account?</text>
+            <Button component={Link} to='./'>
               Login
             </Button>
           </div>
