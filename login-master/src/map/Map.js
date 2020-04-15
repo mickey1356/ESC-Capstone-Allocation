@@ -10,7 +10,7 @@ import { object } from 'prop-types';
 const Wrapper = styled.div`
     width: $(props => props.width);
     height: $(props => props.height);
-`; 
+`;
 //Json File
 var dimensions = require('./dicts.json');
 //console.log(data);
@@ -34,7 +34,7 @@ export default class Maps extends React.Component{
         this.setState({
             [e.target.name]: e.target.name === 'width' || 'height' ? parseInt(e.target.value) : e.target.value,
             });
-        
+
     }
     handleChange1(evt){
         this.setState({[evt.target.name]: evt.target.value});
@@ -43,14 +43,14 @@ export default class Maps extends React.Component{
         event.preventDefault()
         console.log(this.state)
         this.setState({
-            dimensions:{ 
+            dimensions:{
                 ...this.state.dimensions, [this.state.boothID]:
                 [[this.state.dimensions[this.state.boothID][0][0], this.state.dimensions[this.state.boothID][0][1]], [this.state.width, this.state.height]]
             }}, () => {
                 this.addProduct(this.state.boothID);
                 console.log(this.state.dimensions[this.state.boothID])
-              }); 
-       
+              });
+
     }
     //L.rectangle([[Number(this.state.height), Number(this.state.width)],[55,110]]));
     getProducts = _ => {
@@ -58,9 +58,9 @@ export default class Maps extends React.Component{
         .then(response => response.json())
         .then(response => this.setState({entries: response.data}))
         .catch(err => console.error(err))
-        
+
     };
-    
+
     addProduct = _ => {
         fetch(`http://localhost:3535/registration/update?id="${this.state.boothID}"&width=${this.state.dimensions[this.state.boothID][1][0]}&height=${this.state.dimensions[this.state.boothID][1][1]}&PosX=${this.state.dimensions[this.state.boothID][0][0]}&PosY=${this.state.dimensions[this.state.boothID][0][1]}`)
         .then(response => response.json())
@@ -76,11 +76,11 @@ export default class Maps extends React.Component{
             if(this.state.entries != null){
                 for(const key of this.state.entries.keys()){
                     this.setState({
-                        dimensions:{ 
+                        dimensions:{
                             ...this.state.dimensions, [this.state.entries[key]["id"]]:
                             [[this.state.entries[key]["PosX"], this.state.entries[key]["PosY"]], [this.state.entries[key]["width"], this.state.entries[key]["height"]]]
                         }
-                        
+
                     })
                 }
             }
@@ -98,11 +98,11 @@ export default class Maps extends React.Component{
                 allowSelfIntersection: false,
             });
             booth.bindPopup("Booth No: " +  key + " " + "Dimensions: " + dimensions[key][1]);
-            booths[key] = booth; 
+            booths[key] = booth;
             booth.addTo(this.map);
-            //If point is edited 
+            //If point is edited
             booth.on('pm:edit', e => {
-                
+
                     var sWlat = e.target._bounds._southWest.lat;
                     var sWlng = e.target._bounds._southWest.lng;
                     var nElat = e.target._bounds._northEast.lat;
@@ -110,7 +110,7 @@ export default class Maps extends React.Component{
                     //get booth no. and convert to int
                     //topleft1 is dimensions[key][0][0], topleft2 is dimensions[key][0][1]
                     var boothno = e.target._popup._content.slice(10,13);
-                    var topleft1 = Math.round((sWlng/92)*132); 
+                    var topleft1 = Math.round((sWlng/92)*132);
                     var topleft2 = Math.round((-nElat/91)*132);
                     var dim1 = Math.round(((nElng/92)*132)-topleft1);
                     var dim2 = Math.round(((-sWlat/91)*132)-topleft2);
@@ -120,19 +120,19 @@ export default class Maps extends React.Component{
                 //console.log(boothno, "old", dimensions[boothno], "new", [[topleft1, topleft2], [dim1,dim2]]);
               });
 
-    
+
             }
         }, 1000);
         this.map = L.map('map',
         {
             crs: L.CRS.Simple,
             minZoom: 2,
-            maxZoom: 3, 
+            maxZoom: 3,
             zoomControl: true,
             center: [0,0],
             zoom: 1,
         });
-        //w and h based on the size of the image 
+        //w and h based on the size of the image
         var w = 363;
         var h = 370;
         var imageUrl = mappic;
@@ -140,16 +140,16 @@ export default class Maps extends React.Component{
         var northEast = this.map.unproject([ w, 0], this.map.getMaxZoom()-1);
         var bounds = new L.LatLngBounds( southWest, northEast);
         L.imageOverlay(imageUrl, bounds).addTo(this.map);
-    
-        
+
+
         //adds the various booths to the map
-        
-        //top left and bottom right 
+
+        //top left and bottom right
         //dimensions of full map [[-100,540], [100,-180]]
         //console.log(booths);
         this.map.setMaxBounds(bounds);
         this.map.pm.setGlobalOptions({allowSelfIntersection: false});
-        //Sets toolbar on the left map 
+        //Sets toolbar on the left map
         this.map.pm.addControls({
             position: 'topleft',
             drawCircle: false,
@@ -163,40 +163,39 @@ export default class Maps extends React.Component{
             if(e.layer._content != null){
                 var boothno = e.layer._content.slice(10,13);
                 console.log(boothno);
-            }     
+            }
         });
-    
 
-        
-    } 
 
-    
+
+    }
+
+
     render(){
         //console.log((this.state.entries.valuesOf(2)));
         return (
             <div>
                 <form onSubmit = {this.handleSubmit} >
                     <label>
-                        Booth ID: 
+                        Booth ID:
                     </label>
-                    <input 
+                    <input
                     type="text" name="boothID" onChange={this.handleChange1}/>
                     <label>
-                        Breadth: 
+                        Breadth:
                     </label>
                     <input
                     type="text" name="height" onChange={this.handleChange}/>
                     <label>
-                        Width: 
+                        Width:
                     </label>
                     <input
                     type="text" name="width" onChange={this.handleChange}/>
                     <button type="submit">Submit</button>
                 </form>
-                
+
                 <Wrapper width="512px" height="512px" id="map" />
             </div>
         )
     }
 }
-

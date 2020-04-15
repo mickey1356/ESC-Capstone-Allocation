@@ -38,7 +38,7 @@ export default class App extends React.Component{
         // alert("hello");
         fetch('http://localhost:3535/allocate', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {'Content-Type': 'application/json' },
             body: "nothing here",
         }).catch(err => console.log(err));
     }

@@ -1,5 +1,5 @@
 const mysql = require("mysql");
-const fs = require("fs");
+// const fs = require("fs");
 const {Allocator, Path} = require("./allocate.js");
 const SPACE = require("./space.js");
 
@@ -43,7 +43,7 @@ function get_allocation(allocator) {
             data.push([px, py, id]);
         }
         data.forEach((item) => {
-            queries += mysql.format("UPDATE registration SET posX = ?, posY = ? WHERE id = ?; ", item);
+            queries += mysql.format("UPDATE registration SET PosX = ?, PosY = ? WHERE id = ?; ", item);
         });
         connection.query(queries, (error, results, fields) => {
             if (error) throw error;

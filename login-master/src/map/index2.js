@@ -36,7 +36,7 @@ app.use(cors());
 
 app.get('/registration/update', (req,res) => {
     const{id, width, height, PosX, PosY} = req.query;
-    const INSERT_REGISTRATION_QUERY = 
+    const INSERT_REGISTRATION_QUERY =
     `UPDATE registration SET PosX=${PosX}, PosY=${PosY}, width=${width}, height=${height} WHERE id=${id}`;
     connection.query(INSERT_REGISTRATION_QUERY, (err, results) =>{
         if(err){
@@ -83,6 +83,7 @@ app.get('/registration', (req, res) => {
 });
 
 app.post("/allocate", (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
     // console.log(req);
     // console.log(res);
     let allocator = new Allocator();
@@ -105,7 +106,7 @@ app.post("/allocate", (req, res) => {
             data.push([px, py, id]);
         }
         data.forEach((item) => {
-            queries += mysql.format("UPDATE registration SET posX = ?, posY = ? WHERE id = ?; ", item);
+            queries += mysql.format("UPDATE registration SET PosX = ?, PosY = ? WHERE id = ?; ", item);
         });
         connection.query(queries, (error, results, fields) => {
             if (error) throw error;
