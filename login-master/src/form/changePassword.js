@@ -43,6 +43,7 @@ class Home extends React.Component{
             <form action="http://localhost/resetPassword.php" method="post">
                 <TextField
                     type="studentID" 
+                    id="studentID"
                     required className="form-control" 
                     name="studentID" 
                     variant='outlined'
@@ -74,7 +75,7 @@ class Home extends React.Component{
                 />
                 <br/> <br/>
                 
-                <button type = "submit" name= "submitform" variant='contained' style={{width:'100%'}}>
+                <button type = "submit" id="submit" name= "submitform" variant='contained' style={{width:'100%'}}>
                     Password Changed
                 </button>
             </form>
