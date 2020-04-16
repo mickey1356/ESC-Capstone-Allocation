@@ -6,7 +6,6 @@ import '@geoman-io/leaflet-geoman-free';
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
 import mappic from './spaceupdat.jpg';
 import { object } from 'prop-types';
-import '/Users/suhassahu/Desktop/ReactStuff/mapapp/node_modules/leaflet-easyprint/dist/bundle.js'
 
 const Wrapper = styled.div`
     width: $(props => props.width);
@@ -58,20 +57,14 @@ export default class Maps extends React.Component{
     handleSubmit = event => {
         event.preventDefault()
         console.log(this.state)
-        try{
-            this.setState({
-                dimensions:{ 
-                    ...this.state.dimensions, [this.state.boothID]:
-                    [[this.state.dimensions[this.state.boothID][0][0], this.state.dimensions[this.state.boothID][0][1]], [this.state.width, this.state.height]]
-                }}, () => {
-                    this.addProduct(this.state.boothID);
-                    console.log(this.state.dimensions[this.state.boothID])
-                  }); 
-        }
-        catch{
-            alert("Please Check Inputs");
-        }
-        
+        this.setState({
+            dimensions:{ 
+                ...this.state.dimensions, [this.state.boothID]:
+                [[this.state.dimensions[this.state.boothID][0][0], this.state.dimensions[this.state.boothID][0][1]], [this.state.width, this.state.height]]
+            }}, () => {
+                this.addProduct(this.state.boothID);
+                console.log(this.state.dimensions[this.state.boothID])
+              }); 
        
     }
     //L.rectangle([[Number(this.state.height), Number(this.state.width)],[55,110]]));
@@ -100,7 +93,7 @@ export default class Maps extends React.Component{
                     this.setState({
                         dimensions:{ 
                             ...this.state.dimensions, [this.state.entries[key]["id"]]:
-                            [[this.state.entries[key]["PosX"], this.state.entries[key]["PosY"]], [this.state.entries[key]["width"], this.state.entries[key]["height"]], this.state.entries[key]["groupName"]]
+                            [[this.state.entries[key]["PosX"], this.state.entries[key]["PosY"]], [this.state.entries[key]["width"], this.state.entries[key]["height"]]]
                         }
                         
                     })
@@ -112,29 +105,23 @@ export default class Maps extends React.Component{
                 if(dimensions[key][0][0] && dimensions[key][0][1] == -1){
                     this.setState({notallocated: this.state.notallocated.concat(key)});
                     this.setState({notallocated: this.state.notallocated.concat(", ")});
-                    } 
-                //var newlong = (((dimensions[key][0][0] + dimensions[key][1][0])/132)*92);
-                this.setState({newlong: (((dimensions[key][0][0] + dimensions[key][1][0])/132)*92)});
-                //var newlat = (((dimensions[key][0][1] + dimensions[key][1][1])/132)*91);
-                this.setState({newlat: (((dimensions[key][0][1] + dimensions[key][1][1])/132)*91)});
-                //var oldlong = ((dimensions[key][0][0]/132)*92);
-                this.setState({oldlong: ((dimensions[key][0][0]/132)*92)});
-                //var oldlat = ((dimensions[key][0][1]/132)*91);
-                this.setState({oldlat: ((dimensions[key][0][1]/132)*91)});
+            } 
+                var newlong = (((dimensions[key][0][0] + dimensions[key][1][0])/132)*92);
+                var newlat = (((dimensions[key][0][1] + dimensions[key][1][1])/132)*91);
+                var oldlong = ((dimensions[key][0][0]/132)*92);
+                var oldlat = ((dimensions[key][0][1]/132)*91);
                 //this.map.addLayer(L.rectangle([[-oldlat, oldlong], [-newlat, newlong]], {pmIgnore: false}));
-                //var booth = L.rectangle([[-oldlat, oldlong], [-newlat, newlong]], {pmIgnore: false});
-                this.setState({booth: L.rectangle([[-this.state.oldlat, this.state.oldlong], [-this.state.newlat, this.state.newlong]], {pmIgnore: false})});
+                var booth = L.rectangle([[-oldlat, oldlong], [-newlat, newlong]], {pmIgnore: false});
                 //var booth2 = L.rectangle([[-67.12121212121212, 26.484848],[-57.469,42.5]]).addTo(this.map);
-                this.state.booth.pm.enable({
+                booth.pm.enable({
                     allowSelfIntersection: false,
                 });
-                this.state.booth.bindPopup(
-                    "Booth ID: " +  key + "| Group Name: " + dimensions[key][2] +  "| Width: " + dimensions[key][1][0] + "| Breadth: " + dimensions[key][1][1] + "| X: " + dimensions[key][0][0] + "| Y: " + dimensions[key][0][1] );
-                booths[key] = this.state.booth; 
-                this.state.booth.addTo(this.map);
+                booth.bindPopup("Booth No: " +  key + " " + "Dimensions: " + dimensions[key][1]);
+                booths[key] = booth; 
+                booth.addTo(this.map);
                 
                 //If point is edited 
-                this.state.booth.on('pm:edit', e => {
+                booth.on('pm:edit', e => {
                         this.setState({sWlat: e.target._bounds._southWest.lat});
                         this.setState({sWlng: e.target._bounds._southWest.lng});
                         this.setState({nElat: e.target._bounds._northEast.lat});
@@ -146,7 +133,8 @@ export default class Maps extends React.Component{
                         this.setState({topleft2: Math.round((-this.state.nElat/91)*132)});
                         this.setState({dim1: Math.round(((this.state.nElng/92)*132)-this.state.topleft1)});
                         this.setState({dim2: Math.round(((-this.state.sWlat/91)*132)-this.state.topleft2)})
-                        booths[this.state.boothno].setPopupContent("Booth ID: " +  this.state.boothno + "| Group Name: " + dimensions[this.state.boothno][2]  + "| Width: " + this.state.dim1 + "| Breadth: " + this.state.dim2 + "| X: " + this.state.topleft1 + "| Y: " + this.state.topleft2);
+                        console.log((this.state.boothno).length);
+                        booths[this.state.boothno].setPopupContent("Booth ID: " +  this.state.boothno + " " + "Dimensions: " + [this.state.dim1,this.state.dim2]);
                 
                         this.setState({
                             dimensions:{ 
@@ -165,7 +153,6 @@ export default class Maps extends React.Component{
         
             }
         }, 1000);
-    
         this.map = L.map('map',
         {
             crs: L.CRS.Simple,
@@ -183,8 +170,11 @@ export default class Maps extends React.Component{
         var northEast = this.map.unproject([ w, 0], this.map.getMaxZoom()-1);
         var bounds = new L.LatLngBounds( southWest, northEast);
         L.imageOverlay(imageUrl, bounds).addTo(this.map);
-        //toprint the map
-        L.easyPrint().addTo(this.map);
+    
+        
+        //adds the various booths to the map
+        
+        //top left and bottom right 
         //dimensions of full map [[-100,540], [100,-180]]
         //console.log(booths);
         this.map.setMaxBounds(bounds);
@@ -198,11 +188,11 @@ export default class Maps extends React.Component{
             drawPolyline: false,
             drawCircleMarker: false,
             cutPolygon: false,
-            drawRectangle: false,
           });
         this.map.on('pm:remove', e =>{
             if(e.layer._popup._content != null){
                 this.setState({boothno: e.layer._popup._content.slice(10,13)});
+                console.log((this.state.boothno).length);
                 this.setState({
                     dimensions:{ 
                         ...this.state.dimensions, [this.state.boothno]:
@@ -210,13 +200,8 @@ export default class Maps extends React.Component{
                     }}, () => {
                         this.addProduct(this.state.boothno);
                       });
-                window.location.reload(false);
-                //this.setState({notallocated: this.state.notallocated.concat(this.state.boothno)});
-                //this.setState({notallocated: this.state.notallocated.concat(", ")});
-                
-                //this.setState({notallocated: " "})
-                
-                
+                this.setState({notallocated: this.state.notallocated.concat(this.state.boothno)});
+                this.setState({notallocated: this.state.notallocated.concat(", ")});
 
             }     
         });
@@ -245,7 +230,7 @@ export default class Maps extends React.Component{
                     </label>
                     <input
                     type="text" name="height" id="height" onChange={this.handleChange}/>
-                    <button type="submit" id="changebtn">Add Booth to Map</button>
+                    <button type="submit" id="changebtn">Submit</button>
                 </form>
                 <label>
                     Booths Yet To Be Allocated: {this.state.notallocated}
