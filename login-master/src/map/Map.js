@@ -6,7 +6,7 @@ import '@geoman-io/leaflet-geoman-free';
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
 import mappic from './spaceupdat.jpg';
 import { object } from 'prop-types';
-import '/Users/suhassahu/Desktop/ReactStuff/mapapp/node_modules/leaflet-easyprint/dist/bundle.js'
+import '/sk yeh/Elements of Software Construction/Capstone Project/CapstoneSpaceAllocationProject/login-master/node_modules/leaflet-easyprint/dist/bundle.js'
 
 const Wrapper = styled.div`
     width: $(props => props.width);
