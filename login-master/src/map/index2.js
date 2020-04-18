@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const app = express();
 
 const {Allocator} = require("./allocate.js");
-const SPACE = require("./space.js");
+const {SPACE1, SPACE2} = require("./space.js");
 
 const SELECT_ALL_BOOTHS_QUERY = 'SELECT * FROM registration';
 
@@ -89,13 +89,14 @@ app.post("/allocate", (req, res) => {
     let allocator = new Allocator();
     // console.log(p);
 
-    allocator.load_grid(SPACE);
+    allocator.load_grid(1, SPACE1);
+    allocator.load_grid(2, SPACE2);
 
     connection.query('SELECT * FROM registration', (error, results, fields) => {
         if (error) return res.send(error);
         allocator.load_booths_obj(results);
 
-    	allocator.allocate();
+    	allocator.allocate(65);
 
         // UPDATE registration SET posX = posX, posY = posY WHERE id = id
         let data = [];

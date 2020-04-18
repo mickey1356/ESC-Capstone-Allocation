@@ -4,13 +4,18 @@ import styled from 'styled-components';
 import 'leaflet/dist/leaflet.css';
 import '@geoman-io/leaflet-geoman-free';
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
-import mappic from './spaceupdat.jpg';
+import mappic from './combine2.png';
 import { object } from 'prop-types';
 
 const Wrapper = styled.div`
     width: $(props => props.width);
     height: $(props => props.height);
 `;
+
+// im width height
+const WIDTH = 1191;
+const HEIGHT = 1684;
+
 //Json File
 var dimensions = require('./dicts.json');
 //console.log(data);
@@ -86,22 +91,25 @@ export default class Maps extends React.Component{
             }
             console.log(this.state.dimensions);
             dimensions = this.state.dimensions;
-            for(var key in dimensions){
-            var newlong = (((dimensions[key][0][0] + dimensions[key][1][0])/132)*92);
-            var newlat = (((dimensions[key][0][1] + dimensions[key][1][1])/132)*91);
-            var oldlong = ((dimensions[key][0][0]/132)*92);
-            var oldlat = ((dimensions[key][0][1]/132)*91);
-            //this.map.addLayer(L.rectangle([[-oldlat, oldlong], [-newlat, newlong]], {pmIgnore: false}));
-            var booth = L.rectangle([[-oldlat, oldlong], [-newlat, newlong]], {pmIgnore: false});
-            //var booth2 = L.rectangle([[-67.12121212121212, 26.484848],[-57.469,42.5]]).addTo(this.map);
-            booth.pm.enable({
-                allowSelfIntersection: false,
-            });
-            booth.bindPopup("Booth No: " +  key + " " + "Dimensions: " + dimensions[key][1]);
-            booths[key] = booth;
-            booth.addTo(this.map);
-            //If point is edited
-            booth.on('pm:edit', e => {
+            for(var key in dimensions) {
+
+                // OVER HERE IS THE WEIRD CALCS
+                var newlong = (((dimensions[key][0][0] + dimensions[key][1][0])/132)*92);
+                var newlat = (((dimensions[key][0][1] + dimensions[key][1][1])/132)*91);
+                var oldlong = ((dimensions[key][0][0]/132)*92);
+                var oldlat = ((dimensions[key][0][1]/132)*91);
+
+                //this.map.addLayer(L.rectangle([[-oldlat, oldlong], [-newlat, newlong]], {pmIgnore: false}));
+                var booth = L.rectangle([[-oldlat, oldlong], [-newlat, newlong]], {pmIgnore: false});
+                //var booth2 = L.rectangle([[-67.12121212121212, 26.484848],[-57.469,42.5]]).addTo(this.map);
+                booth.pm.enable({
+                    allowSelfIntersection: false,
+                });
+                booth.bindPopup("Booth No: " +  key + " " + "Dimensions: " + dimensions[key][1]);
+                booths[key] = booth;
+                booth.addTo(this.map);
+                //If point is edited
+                booth.on('pm:edit', e => {
 
                     var sWlat = e.target._bounds._southWest.lat;
                     var sWlng = e.target._bounds._southWest.lng;
@@ -109,39 +117,50 @@ export default class Maps extends React.Component{
                     var nElng = e.target._bounds._northEast.lng;
                     //get booth no. and convert to int
                     //topleft1 is dimensions[key][0][0], topleft2 is dimensions[key][0][1]
+
+                    // OVER HERE IS THE WEIRD CALCS
                     var boothno = e.target._popup._content.slice(10,13);
                     var topleft1 = Math.round((sWlng/92)*132);
                     var topleft2 = Math.round((-nElat/91)*132);
                     var dim1 = Math.round(((nElng/92)*132)-topleft1);
                     var dim2 = Math.round(((-sWlat/91)*132)-topleft2);
+
+
                     booths[boothno].setPopupContent("Booth No: " +  key + " " + "Dimensions: " + [dim1,dim2]);
                     console.log(boothno)
-                //need to debug, booth number only comes up once, after that reverts to 56
-                //console.log(boothno, "old", dimensions[boothno], "new", [[topleft1, topleft2], [dim1,dim2]]);
-              });
-
-
+                    //need to debug, booth number only comes up once, after that reverts to 56
+                    //console.log(boothno, "old", dimensions[boothno], "new", [[topleft1, topleft2], [dim1,dim2]]);
+                });
             }
         }, 1000);
         this.map = L.map('map',
         {
             crs: L.CRS.Simple,
-            minZoom: 2,
+            minZoom: 0,
             maxZoom: 3,
             zoomControl: true,
             center: [0,0],
             zoom: 1,
         });
         //w and h based on the size of the image
-        var w = 363;
-        var h = 370;
+        var w = WIDTH;
+        var h = HEIGHT;
         var imageUrl = mappic;
         var southWest = this.map.unproject([ 0, h], this.map.getMaxZoom()-1);
         var northEast = this.map.unproject([ w, 0], this.map.getMaxZoom()-1);
         var bounds = new L.LatLngBounds( southWest, northEast);
         L.imageOverlay(imageUrl, bounds).addTo(this.map);
+        // console.log(bounds);
 
+        // y, x => ny, nx
+        // tl: 0, 0 (x,y)
+        // br: 298, -421 (x,y) (down is negative)
+        // lvl1:[0 0 297 -210] [0 -211 297 -421]
+        var booth0001 = L.rectangle([[0, 0], [-210, 10]], {pmIgnore: false});
+        var booth0002 = L.rectangle([[-211, 0], [-421, 10]], {pmIgnore: false});
 
+        booth0001.addTo(this.map);
+        booth0002.addTo(this.map);
         //adds the various booths to the map
 
         //top left and bottom right
@@ -179,13 +198,8 @@ export default class Maps extends React.Component{
                     <label>
                         Booth ID:
                     </label>
-<<<<<<< HEAD
                     <input
                     type="text" name="boothID" onChange={this.handleChange1}/>
-=======
-                    <input 
-                    type="text" name="boothID" id="boothID" onChange={this.handleChange1}/>
->>>>>>> 43e6e77560a3e51b20eeea34a040f5e23a69df64
                     <label>
                         Breadth:
                     </label>
