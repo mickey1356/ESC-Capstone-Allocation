@@ -6,7 +6,7 @@ import '@geoman-io/leaflet-geoman-free';
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
 import mappic from './spaceupdat.jpg';
 import { object } from 'prop-types';
-import '/Users/suhassahu/Desktop/ReactStuff/mapapp/node_modules/leaflet-easyprint/dist/bundle.js'
+import 'leaflet-easyprint/dist/bundle.js'
 
 const Wrapper = styled.div`
     width: $(props => props.width);
@@ -22,6 +22,7 @@ export default class Maps extends React.Component{
         super(props);
         this.state = ({
             boothID: '',
+            boothID2: '',
             width: '',
             height: '',
             entries: [],
@@ -73,6 +74,17 @@ export default class Maps extends React.Component{
         }
         
        
+    }
+    handleSubmit2 = event =>{
+        event.preventDefault();
+        console.log(this.state.boothID2);
+        try{
+            booths[this.state.boothID2].setPopupContent("Booth ID: " +  this.state.boothID2 + "| Group Name: " + dimensions[this.state.boothID2][2] +  "| Width: " + dimensions[this.state.boothID2][1][0] + "| Breadth: " + dimensions[this.state.boothID2][1][1] + "| X: " + dimensions[this.state.boothID2][0][0] + "| Y: " + dimensions[this.state.boothID2][0][1]).openPopup();
+
+        }
+        catch{
+            alert("Please Key in Valid Booth No.")
+        }
     }
     //L.rectangle([[Number(this.state.height), Number(this.state.width)],[55,110]]));
     getProducts = _ => {
@@ -129,7 +141,7 @@ export default class Maps extends React.Component{
                     allowSelfIntersection: false,
                 });
                 this.state.booth.bindPopup(
-                    "Booth ID: " +  key + "| Group Name: " + dimensions[key][2] +  "| Width: " + dimensions[key][1][0] + "| Breadth: " + dimensions[key][1][1] + "| X: " + dimensions[key][0][0] + "| Y: " + dimensions[key][0][1] );
+                    "Booth ID: " +  key + "| Group Name: " + dimensions[key][2] +  "| Width: " + dimensions[key][1][0] + "| Breadth: " + dimensions[key][1][1] + "| X: " + dimensions[key][0][0] + "| Y: " + dimensions[key][0][1]);  
                 booths[key] = this.state.booth; 
                 this.state.booth.addTo(this.map);
                 
@@ -246,6 +258,14 @@ export default class Maps extends React.Component{
                     <input
                     type="text" name="height" id="height" onChange={this.handleChange}/>
                     <button type="submit" id="changebtn">Add Booth to Map</button>
+                </form>
+                <form onSubmit = {this.handleSubmit2} >
+                    <label>
+                        Booth ID: 
+                    </label>
+                    <input 
+                    type="text" name="boothID2" id="boothID2" onChange={this.handleChange1}/>
+                    <button type="submit" id="viewbtn">View Booth on Map</button>
                 </form>
                 <label>
                     Booths Yet To Be Allocated: {this.state.notallocated}
