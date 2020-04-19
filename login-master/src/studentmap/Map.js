@@ -325,16 +325,23 @@ export default class Maps extends React.Component{
             <div>
 
                 <form onSubmit = {this.handleSubmit2} >
-                    <label>
-                        Booth ID:
-                    </label>
-                    <input
-                    type="text" name="boothID2" id="boothID2" onChange={this.handleChange1}/>
-                    <button type="submit" id="viewbtn">View Booth on Map</button>
+                    <div class="input">
+                        <label>Booth ID: </label>
+                        <input
+                            type="text" 
+                            name="boothID2" 
+                            id="boothID2" 
+                            onChange={this.handleChange1}
+                        />
+                        <button 
+                            type="submit" 
+                            id="viewbtn"
+                            class="btn"
+                        >View Booth on Map</button>
+                    </div>
                 </form>
-                <label>
-                    Booths Yet To Be Allocated: {this.state.notallocated}
-                </label>
+
+                <label>Booths Yet To Be Allocated: {this.state.notallocated}</label>
 
 
 

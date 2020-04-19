@@ -7,6 +7,10 @@
   justify-content: center;
 }
 
+.Header .title{
+  padding-bottom: 40px;
+}
+
 .Background {
   background-image: url(https://s3-ap-southeast-1.amazonaws.com/images.marketing-interactive.com/wp-content/uploads/2019/04/30084721/SUTD-Singapore.jpg);
   height: 100%;
