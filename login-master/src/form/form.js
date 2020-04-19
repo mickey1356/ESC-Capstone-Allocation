@@ -1,15 +1,15 @@
 import React from "react";
-import "./style.css";
+import "./styleform.css";
 import "bootstrap/dist/css/bootstrap.css";
+import sutdLogo from "./imageFile/sutdLogo.png";
 import { Link } from "react-router-dom";
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
-import * as legoData from "./loadingJson/legoloading";
-import * as doneData from "./loadingJson/doneloading";
-import sutdLogo from "./sutdLogo.png";
+import * as legoData from "./loadingFile/legoloading";
+import * as doneData from "./loadingFile/doneloading";
 
 
-//Form input initial state
+//Form input's initial state
 const initialState = {
   id: "",
   groupName: "",
@@ -64,12 +64,12 @@ export default class form extends React.Component {
           this.setState({ loading: true });
           setTimeout(() => {
             this.setState({ done: true });
-          }, 1000);
+          }, 700);
         });
-    }, 1200);
+    }, 600);
   }
 
-  //Validating form input
+  //Validate form input
   state = initialState;
 
   handleChange = event => {
@@ -93,50 +93,22 @@ export default class form extends React.Component {
     let pedestalError = "";
     let otherRequestError = "";
 
-    if (!this.state.id) {
-      idError = "Group ID cannot be empty";
-    }
-    if (!this.state.groupName) {
-      groupNameError = "Group Name cannot be empty";
-    }
-    if (!this.state.category) {
-      categoryError = "Category cannot be empty";
-    }
-    if (!this.state.company) {
-      companyError = "Company cannot be empty";
-    }
-    if (!this.state.width || !this.state.breadth || !this.state.height) {
-      showcaseSpaceError = "Show case space cannot be empty";
-    }
-    if (!this.state.sizeNweight) {
-      sizeNweightError = "Size and weight cannot be empty";
-    }
-    if (!this.state.powerpoints) {
-      powerpointsError = "Powerpoints cannot be empty";
-    }
-    if (!this.state.pedestal) {
-      pedestalError = "Pedestal cannot be empty";
-    }
-    if (!this.state.otherRequest) {
-      otherRequestError = "Other requests cannot be empty";
-    }
-    if(this.state.otherRequest > 20){
-      otherRequestError = "Request message exceeds 20 words"
-    }
+    if (!this.state.id) idError = "Group ID cannot be empty";
+    if (!this.state.groupName) groupNameError = "Group Name cannot be empty";
+    if (!this.state.category) categoryError = "Category cannot be empty";
+    if (!this.state.company) companyError = "Company cannot be empty";
+    if (!this.state.width || !this.state.breadth || !this.state.height)  showcaseSpaceError = "Showcase space cannot be empty";
+    if (!this.state.sizeNweight) sizeNweightError = "Size and weight cannot be empty";
+    if (!this.state.powerpoints) powerpointsError = "Powerpoints cannot be empty";
+    if (!this.state.pedestal) pedestalError = "Pedestal cannot be empty";
+    if (!this.state.otherRequest) otherRequestError = "Other requests cannot be empty";
+    if (this.state.otherRequest > 20) otherRequestError = "Request message exceeds 20 words"
 
     if (idError || groupNameError || categoryError || companyError || showcaseSpaceError || sizeNweightError || powerpointsError || pedestalError || otherRequestError) {
       this.setState({idError, groupNameError, categoryError, companyError, showcaseSpaceError, sizeNweightError, powerpointsError, pedestalError, otherRequestError }); //setting the object here
       return false;
     }
-
     return true;
-  }
-
-  limitDecimalPlaces = (e, count) => {
-    if (e.target.value.indexOf('.') === -1) { return; }
-    if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
-      e.target.value = parseFloat(e.target.value).toFixed(count);
-    }
   }
 
   handleSubmit = event => {
@@ -150,7 +122,6 @@ export default class form extends React.Component {
 
   render() {
     return (
-
       <div>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></link>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
@@ -175,8 +146,8 @@ export default class form extends React.Component {
           <body>
             {/* Navigation Bar */}
             <section id="nav-bar">
-              <nav class="navbar navbar-expand-lg navbar-light">
 
+              <nav class="navbar navbar-expand-lg navbar-light">
                 <button 
                   class="navbar-toggler" 
                   type="button" 
@@ -191,22 +162,13 @@ export default class form extends React.Component {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <img src={sutdLogo} alt="SUTD Logo"></img>
                   <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                      <a class="nav-link" href="#home">HOME</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#form">FORM</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#contact">CONTACT</a>
-                    </li>
+                    <li class="nav-item"> <a class="nav-link" href="#home">HOME</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="#form">FORM</a> </li>
+                    <li class="nav-item"> <a class="nav-link" href="#contact">CONTACT</a> </li>
+                    <Link to="/studentMap"> <li class="nav-item"> <a class="nav-link" href="#contact">MAP ALLOCATION</a> </li> </Link>
+                    <Link to="/changePassword"> <li class="nav-item"> <a class="nav-link" href="#contact">PASSWORD SETTING</a> </li> </Link>
+                    <Link to="/"> <li class="nav-item"> <a class="nav-link" href="#contact">LOGOUT</a> </li> </Link>
                   </ul>
-                  <Link to="/">
-                    <button className="btnLogout" color="white">LOGOUT</button  >
-                  </Link>
-                  <Link to="/changePassword">
-                    <button className="btnChangePw" color="white">CHANGE PASSWORD</button  >
-                  </Link>
                 </div>
 
               </nav>
@@ -217,15 +179,10 @@ export default class form extends React.Component {
               <div class="home">
                 <h2>Capstone Space Allocation</h2>
                 <pre>Now that you have completed your Capstone Project, it is time to present your products!
-              {"\n"} Please fill in the form as provided in the page below.
-              {"\n"} If you have any further enquiries, please contact the Capstone Office. Thank you!</pre>
+                  {"\n"} Please fill in the form as provided in the page below. Once the map has been allocated,
+                  {"\n"} please head to 'map allocation' to view your project allocation. If you have any further
+                  {"\n"} enquiries, please contact the Capstone Office. Thank you! 😊</pre>
               </div>
-
-              <form action="http://localhost/export/export.php" method="post">
-                <div class="input_field">
-                  <input type="submit" value="Students' Application" class="btn" id="submitForm" />
-                </div>
-              </form>
             </section>
 
             {/* Form Section*/}
@@ -234,9 +191,9 @@ export default class form extends React.Component {
                 <div class="title">Form</div>
 
                 <div className="form">
-                  <form name="myForm" action="http://localhost/connect.php" onSubmit={this.handleSubmit} method="post">
+                  <form name="myForm" action="http://localhost/formCheck.php" onSubmit={this.handleSubmit} method="post">
 
-                  <div class="input_field">
+                    <div class="input_field">
                       <label>Group ID:</label>
                       <input 
                         type="text" 
@@ -375,7 +332,7 @@ export default class form extends React.Component {
                     </div>
 
                     <div class="input_field">
-                      <label>No of Power Points Needed:</label>
+                      <label>No. of Power Points Needed:</label>
                       <input 
                         type="number" 
                         class="input" 
@@ -399,7 +356,7 @@ export default class form extends React.Component {
                         id="pedestal" 
                         name="pedestal"
                         ref="pedestal"
-                        placeholder="1 short"
+                        placeholder="e.g. 1 short"
                         value={this.state.pedestal} 
                         onChange={this.handleChange}
                       />
@@ -455,8 +412,3 @@ export default class form extends React.Component {
     );
   }
 }
-
-var input;
-document.addEventListener("onclick", function(){
-  input = document.getElementById("input").toFixed(1);
-})

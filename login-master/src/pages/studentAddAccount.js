@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import "./style.css";
-import { FormErrors } from './formErrors';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { FormErrors } from './inputError';
 import { Link } from 'react-router-dom';
 import emailjs from 'emailjs-com';
 
@@ -27,6 +27,11 @@ class createAccount extends Component {
     const value = e.target.value;
     this.setState({[name]: value},
                   () => { this.validateField(name, value) });
+  }
+
+  //Validate student's input
+  validateForm() {
+    this.setState({formValid: this.state.studentIDValid && this.state.emailValid && this.state.groupNameValid});
   }
 
   validateField(fieldName, value) {
@@ -58,21 +63,17 @@ class createAccount extends Component {
     }, this.validateForm);
   }
 
-  validateForm() {
-    this.setState({formValid: this.state.studentIDValid && this.state.emailValid && this.state.groupNameValid});
-  }
-
   errorClass(error) {
     return(error.length === 0 ? '' : 'has-error');
   }
 
+  //Activate account by using random password sent to student's email
   sendEmail = () => {
     var template_params = {
       "email": this.state.email,
       "groupName": this.state.groupName,
       "password": this.state.password 
    }
-
     var service_id = "gmail";
     var template_id = "template_wyiwqdxd";
     var user_id = "user_CBEFF7EPbL1I4OdtdZnki"
@@ -82,43 +83,50 @@ class createAccount extends Component {
   render () {
     return (
       <div className="Background">
+
+        {/* Add Student Account */}
         <header className='Header'>
           <img src='https://asset-group.github.io/img/logo.png' alt="logo" height='50'/>
-          <br/><br/>
-          <form action="http://localhost/connectlogin.php" onSubmit={this.sendEmail} method="post">
+          <form action="http://localhost/studentAddAccount.php" onSubmit={this.sendEmail} method="post">
             <div className={`form-group ${this.errorClass(this.state.formErrors.studentID)}`}>
               <TextField
-                type="studentID" required className="form-control" name="studentID" variant='outlined'
+                type="studentID" 
+                name="studentID" 
+                variant='outlined'
                 placeholder="Student ID"
                 value={this.state.studentID}
                 onChange={this.handleUserInput}
               />
             </div>
-            <br/>
 
             <div className={`form-group ${this.errorClass(this.state.formErrors.email)}`}>
               <TextField
-                type="email" required className="form-control" name="email" variant='outlined'
+                type="email" 
+                name="email" 
+                variant='outlined'
                 placeholder="Email"
                 value={this.state.email}
                 onChange={this.handleUserInput}
               />
             </div>
-            <br/>
 
             <div className={`form-group ${this.errorClass(this.state.formErrors.groupName)}`}>
               <TextField
-                type="groupName" required className="form-control" name="groupName" variant='outlined'
+                type="groupName" 
+                name="groupName" 
+                variant='outlined'
                 placeholder="Group Name"
                 value={this.state.groupName}
                 onChange={this.handleUserInput}
               />
             </div>
-            <br/>
             
             <div>
-              <TextField
-                type="hidden" className="form-control" name="password" variant='outlined'
+              <input
+                type="hidden" 
+                className="form-control" 
+                name="password" 
+                variant='outlined'
                 placeholder="Password"
                 value={this.state.password}
                 onChange={this.handleUserInput}
@@ -127,17 +135,15 @@ class createAccount extends Component {
 
             <div className='ErrorText'>
               <FormErrors className='ErrorText' formErrors={this.state.formErrors} />
-            </div>
+            </div><br/>
 
-            <br/>
-            <button type="submit" name="submitbtn" disabled={!this.state.formValid} variant='contained' style={{width:'100%'}} component={Link} to='./form'>Register</button>
+            <button type="submit" name="submitbtn" disabled={!this.state.formValid} variant='contained' style={{width:'100%'}}>Register</button>
+          
           </form>
-          <br/>
+
           <div style={{flexDirection:'row'}}>
             <text>Already have an account?</text>
-            <Button component={Link} to='./'>
-              Login
-            </Button>
+            <Button component={Link} to='./'>Login</Button>
           </div>
 
         </header>

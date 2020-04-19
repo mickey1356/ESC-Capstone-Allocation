@@ -1,5 +1,6 @@
 import React from 'react';
-import L, { Bounds, popup,} from 'leaflet';
+import "./App.css";
+import L, { Bounds, popup } from 'leaflet';
 import styled from 'styled-components';
 import 'leaflet/dist/leaflet.css';
 import '@geoman-io/leaflet-geoman-free';
@@ -7,6 +8,7 @@ import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
 import mappic from './combine3.png';
 import { object } from 'prop-types';
 import 'leaflet-easyprint';
+import TextField from '@material-ui/core/TextField';
 // import '/sk yeh/Elements of Software Construction/Capstone Project/CapstoneSpaceAllocationProject/login-master/node_modules/leaflet-easyprint/dist/bundle.js'
 
 const Wrapper = styled.div`
@@ -333,36 +335,59 @@ export default class Maps extends React.Component{
         return (
             <div>
                 <form onSubmit = {this.handleSubmit} >
-                    <label>
-                        Booth ID:
-                    </label>
-                    <input
-                    type="text" name="boothID" id="boothID" onChange={this.handleChange1}/>
-                    <label>
-                        Width (m):
-                    </label>
-                    <input
-                    type="text" name="width" id="width" onChange={this.handleChange}/>
-                    <label>
-                        Breadth (m):
-                    </label>
-                    <input
-                    type="text" name="height" id="height" onChange={this.handleChange}/>
-                    <button type="submit" id="changebtn">Resize Booth on Map</button>
+                    <div class="input">
+                        <label>Booth ID:</label>
+                        <input
+                            type="text" 
+                            name="boothID" 
+                            id="boothID"
+                            class="data"
+                            variant='outlined'
+                            onChange={this.handleChange1}
+                        />
+                        <label>Width (m):</label>
+                        <input
+                            type="text" 
+                            name="width" 
+                            id="width" 
+                            class="data"
+                            variant='outlined'
+                            onChange={this.handleChange}
+                        />
+                        <label>Breadth (m):</label>
+                        <input
+                            type="text" 
+                            name="height" 
+                            id="height" 
+                            class="data"
+                            variant='outlined'
+                            onChange={this.handleChange}/>
+                        <button 
+                            type="submit" 
+                            id="changebtn"
+                            class="btn"
+                        >Add Booth to Map</button>
+                    </div>
                 </form>
+
                 <form onSubmit = {this.handleSubmit2} >
-                    <label>
-                        Booth ID:
-                    </label>
-                    <input
-                    type="text" name="boothID2" id="boothID2" onChange={this.handleChange1}/>
-                    <button type="submit" id="viewbtn">View Booth on Map</button>
+                    <div class="input">
+                        <label>Booth ID: </label>
+                        <input
+                            type="text" 
+                            name="boothID2" 
+                            id="boothID2" 
+                            onChange={this.handleChange1}
+                        />
+                        <button 
+                            type="submit" 
+                            id="viewbtn"
+                            class="btn"
+                        >View Booth on Map</button>
+                    </div>
                 </form>
-                <label>
-                    Booths Yet To Be Allocated: {this.state.notallocated}
-                </label>
-
-
+                
+                <label class="input">Booths Yet To Be Allocated: {this.state.notallocated}</label>
 
                 <Wrapper width="512px" height="512px" id="map" />
             </div>

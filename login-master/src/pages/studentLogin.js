@@ -1,21 +1,22 @@
 import React from 'react';
-import '../App.css';
+import './style.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
-var login_attempts=3;
-var bool;
 
+var login_attempts=3;
+var check_data;
+
+//Validate user's input
 function validate(email, password) {
-  // true means invalid, so our conditions got reversed
   return {
     email: email.length === 0,
     password: password.length === 0
   };
 }
 
-class Home extends React.Component{
+class studentLogin extends React.Component{
   constructor(){
     super();
     this.state = {
@@ -41,77 +42,57 @@ class Home extends React.Component{
 
   handleBlur = field => evt => {
     this.setState({
-      touched: { ...this.state.touched, [field]: true }
+      touched: { ...this.state.touched, [field]: true}
     });
   };
 
-  handleSubmit = evt => {
-    //evt.preventDefault();
-    console.log("hello");
-    if (!this.canBeSubmitted()) {
-      evt.preventDefault();
-      return;
-    }
-    const { email, password } = this.state;
-    alert(`Signed up with email: ${email} password: ${password}`);
-  };
-
-  canBeSubmitted() {
-    const errors = validate(this.state.email, this.state.password);
-    const isDisabled = Object.keys(errors).some(x => errors[x]);
-    return !isDisabled;
-  }
-
+  //Check input with database
   checklogin = evt => { 
     var email=document.getElementById("email").value;
     var password=document.getElementById("password").value;
     var data = new FormData();
     data.append("email", email);
     data.append("password", password);
-    // AJAX CALL
+    //AJAX CALL - asynchronous
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', "http://localhost/loginCheck.php", false);
+    xhr.open('POST', "http://localhost/studentLoginCheck.php", false);
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
-        bool = this.responseText;
-        console.log(bool);
+        check_data = this.responseText;
+        console.log(check_data);
       }
     };
     xhr.send(data);
-
-    if(bool === "true"){
+    //Check number of login
+    if(check_data === "true") {
       alert("Successfully Logged In");
       console.log("successful attempt");
-      this.props.history.push('/form')
-      return
-    } else {
-      if (login_attempts===0){
+      this.props.history.push('/form');
+    }else {
+      if (login_attempts===0) {
         evt.preventDefault();
         console.log("unsuccessful attempt");
         alert("No login attempts available");
-        return
-      } else {
+      }else {
         evt.preventDefault();
         console.log("unsuccessful attempt");
         login_attempts=login_attempts-1;
         alert("Login failed, only "+login_attempts+" login attempts available");
-        if(login_attempts===0){
+        if(login_attempts===0) {
           document.getElementById("email").disabled=true;
           document.getElementById("password").disabled=true;
         }
-        return
       }
     }
   };
 
   render(){
+    //Check for input error
     const errors = validate(this.state.email, this.state.password);
     const isDisabled = Object.keys(errors).some(x => errors[x]);
-
     const shouldMarkError = field => {
       const hasError = errors[field];
       const shouldShow = this.state.touched[field];
-
       return hasError ? shouldShow : false;
     };
 
@@ -119,48 +100,48 @@ class Home extends React.Component{
       <div className="Background">
         <header className="Header">
           <img src='https://asset-group.github.io/img/logo.png' alt="logo" height='50'/>
-          <br/><br/>
-            <form onSubmit ={this.checklogin}>
-              <TextField
-                id="email"
-                name="email"
-                className={shouldMarkError("email") ? "error" : ""}
-                type="text"
-                placeholder="Enter email"
-                value={this.state.email}
-                onChange={this.handleEmailChange}
-                onBlur={this.handleBlur("email")}
-                variant='outlined'
-              />
-              <br/> <br/>
-              <TextField
-                id="password"
-                name="password"
-                className={shouldMarkError("password") ? "error" : ""}
-                type="password"
-                placeholder="Enter password"
-                value={this.state.password}
-                onChange={this.handlePasswordChange}
-                onBlur={this.handleBlur("password")}
-                variant='outlined'
-              />
-              <br/> <br/>
-              <button type = "submit" id="submit" disabled={isDisabled} variant='contained' style={{width:'100%'}}>
-                Login
-              </button>
-            </form>
-          <br/>
+          <form onSubmit ={this.checklogin}>
+
+            <TextField
+              id="email"
+              name="email"
+              className={shouldMarkError("email") ? "error" : ""}
+              type="text"
+              placeholder="Enter email"
+              value={this.state.email}
+              onChange={this.handleEmailChange}
+              onBlur={this.handleBlur("email")}
+              variant='outlined'
+            /><br/><br/>
+
+            <TextField
+              id="password"
+              name="password"
+              className={shouldMarkError("password") ? "error" : ""}
+              type="password"
+              placeholder="Enter password"
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
+              onBlur={this.handleBlur("password")}
+              variant='outlined'
+            /><br/> <br/>
+
+            <button type = "submit" id="submit" disabled={isDisabled} variant='contained' style={{width:'100%'}}>
+              Login
+            </button>
+          </form>
+
           <div style={{flexDirection:'row'}}>
             <text>Not registered?</text>
-            <Button component={Link} to='./createAccount'>
-              Create Account
-            </Button>
+            <Button component={Link} to='./studentAddAccount'>Create Account</Button>
           </div>
+
           <Button component={Link} to='./adminLogin'>Admin Login</Button>
+
         </header>
       </div>
     );
   }
 }
 
-export default Home;
+export default studentLogin;

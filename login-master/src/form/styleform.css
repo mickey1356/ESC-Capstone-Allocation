@@ -7,8 +7,29 @@
 }
 
 
-/*------Navigation Bar Section------*/
+/*------Change Password------*/
+.Header {
+    background-color: #cee2ffc7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
+.Header .title{
+    padding-bottom: 40px;
+}
+
+.Background {
+    background-image: url(https://s3-ap-southeast-1.amazonaws.com/images.marketing-interactive.com/wp-content/uploads/2019/04/30084721/SUTD-Singapore.jpg);
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/*------Navigation Bar Section------*/
 #nav-bar {
     position: sticky;
     top: 0;
@@ -49,7 +70,6 @@
 }
 
 /*------Form Section------*/
-
 .home {
     padding: 30px;
     height: 100%;
@@ -197,7 +217,6 @@
 
 
 /*------Contact Section------*/
-
 #contact {
     background: #333;
     color: #fff;
