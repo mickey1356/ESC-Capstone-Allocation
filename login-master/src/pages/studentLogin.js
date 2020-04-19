@@ -99,7 +99,8 @@ class studentLogin extends React.Component{
     return (
       <div className="Background">
         <header className="Header">
-          <img src='https://asset-group.github.io/img/logo.png' alt="logo" height='50'/>
+          <img className="image" src='https://asset-group.github.io/img/logo.png' alt="logo" height='90'/>
+          <h3 className="index">Student Login</h3>
           <form onSubmit ={this.checklogin}>
 
             <TextField
@@ -126,17 +127,27 @@ class studentLogin extends React.Component{
               variant='outlined'
             /><br/> <br/>
 
-            <button type = "submit" id="submit" disabled={isDisabled} variant='contained' style={{width:'100%'}}>
-              Login
-            </button>
+            <Button 
+              type="submit" 
+              id="submit" 
+              disabled={isDisabled} 
+              variant='contained' 
+              style={{width:'100%'}}
+            >Login</Button>
           </form>
 
           <div style={{flexDirection:'row'}}>
             <text>Not registered?</text>
-            <Button component={Link} to='./studentAddAccount'>Create Account</Button>
+            <Button 
+              component={Link} 
+              to='./studentAddAccount'
+            >Create Account</Button>
           </div>
 
-          <Button component={Link} to='./adminLogin'>Admin Login</Button>
+          <Button 
+            component={Link} 
+            to='./adminLogin'
+          >Admin Login</Button>
 
         </header>
       </div>

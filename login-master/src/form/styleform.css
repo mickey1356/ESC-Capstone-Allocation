@@ -6,6 +6,10 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+#load {
+    padding-top: 200px;
+    padding-left: 250px;
+}
 
 /*------Change Password------*/
 .Header {
@@ -17,8 +21,8 @@
     justify-content: center;
 }
 
-.Header .title{
-    padding-bottom: 40px;
+.Header .index{
+    padding-bottom: 20px;
 }
 
 .Background {

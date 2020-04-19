@@ -4,7 +4,7 @@
     if (isset($_POST['submitform'])){   
         ?>
     <script type="text/javascript">
-    window.location = "http://localhost:3000/form";
+        window.location = "http://localhost:3000/changePassword";
     </script>      
         <?php
         }

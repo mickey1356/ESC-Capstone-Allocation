@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './style.css';
 import sutdLogo from "./imageFile/sutdLogo.png";
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import emailjs from 'emailjs-com';
 import { FormErrors } from './inputError';
 import { Link } from 'react-router-dom';
@@ -95,7 +96,7 @@ class createAccount extends Component {
 
         {/* Add Admin Account */}
         <body className='Header'>
-          <h3 class="title">Add Admin Account</h3>
+          <h3 className="index">Add Admin Account</h3>
           <form action="http://localhost/adminAddAccount.php" onSubmit={this.sendEmail} method="post">
             <div className={`form-group ${this.errorClass(this.state.formErrors.email)}`}>
               <TextField
@@ -124,12 +125,12 @@ class createAccount extends Component {
               <FormErrors className='ErrorText' formErrors={this.state.formErrors} />
             </div><br/>
 
-            <button
+            <Button
               type="submit" 
               name="submitbtn" 
               disabled={!this.state.formValid} 
               variant='contained' style={{width:'100%'}}
-            >Add admin account</button>
+            >Add admin account</Button>
           
           </form>
 

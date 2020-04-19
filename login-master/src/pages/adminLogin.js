@@ -97,8 +97,8 @@ class adminLogin extends React.Component{
     return (
       <div className="Background">
         <header className="Header">
-          <img src='https://asset-group.github.io/img/logo.png' alt="logo" height='50'/>
-          <text>Admin Login</text>
+          <img className="image" src='https://asset-group.github.io/img/logo.png' alt="logo" height='90'/>
+          <h3 className="index">Admin Login</h3>
           <form onSubmit={this.checklogin}>
 
             <TextField
@@ -123,9 +123,13 @@ class adminLogin extends React.Component{
               variant='outlined'
             /><br/> <br/>
 
-            <button type = "submit" id="submit" disabled={isDisabled} variant='contained' style={{width:'100%'}}>
-              Login
-            </button>
+            <Button 
+              type="submit" 
+              id="submit" 
+              disabled={isDisabled} 
+              variant='contained' 
+              style={{width:'100%'}}
+            >Login</Button>
           </form >
 
           <Button component={Link} to='./'>Student Login</Button>

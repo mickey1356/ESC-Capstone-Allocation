@@ -309,21 +309,14 @@ export default class Maps extends React.Component{
                 //this.setState({notallocated: this.state.notallocated.concat(", ")});
 
                 //this.setState({notallocated: " "})
-
-
-
             }
         });
-
-
-
     }
 
 
     render(){
         return (
             <div>
-
                 <form onSubmit = {this.handleSubmit2} >
                     <div class="input">
                         <label>Booth ID: </label>
@@ -343,9 +336,8 @@ export default class Maps extends React.Component{
 
                 <label>Booths Yet To Be Allocated: {this.state.notallocated}</label>
 
+                <Wrapper width="512px" height="512px" id="map"/>
 
-
-                <Wrapper width="512px" height="512px" id="map" />
             </div>
         )
     }

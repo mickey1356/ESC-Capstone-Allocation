@@ -86,7 +86,8 @@ class createAccount extends Component {
 
         {/* Add Student Account */}
         <header className='Header'>
-          <img src='https://asset-group.github.io/img/logo.png' alt="logo" height='50'/>
+          <img className="image" src='https://asset-group.github.io/img/logo.png' alt="logo" height='90'/>
+          <h3 className="index">Register Student Account</h3>
           <form action="http://localhost/studentAddAccount.php" onSubmit={this.sendEmail} method="post">
             <div className={`form-group ${this.errorClass(this.state.formErrors.studentID)}`}>
               <TextField
@@ -137,7 +138,13 @@ class createAccount extends Component {
               <FormErrors className='ErrorText' formErrors={this.state.formErrors} />
             </div><br/>
 
-            <button type="submit" name="submitbtn" disabled={!this.state.formValid} variant='contained' style={{width:'100%'}}>Register</button>
+            <Button 
+              type="submit" 
+              name="submitbtn" 
+              disabled={!this.state.formValid} 
+              variant='contained' 
+              style={{width:'100%'}}
+            >Register</Button>
           
           </form>
 

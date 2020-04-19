@@ -7,7 +7,11 @@
   justify-content: center;
 }
 
-.Header .title{
+.Header .index{
+  padding-bottom: 20px;
+}
+
+.Header .image{
   padding-bottom: 40px;
 }
 

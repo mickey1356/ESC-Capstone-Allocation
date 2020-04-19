@@ -3,6 +3,7 @@ import './styleform.css';
 import sutdLogo from "./imageFile/sutdLogo.png";
 import { Link } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 
 class Home extends React.Component{
@@ -57,9 +58,9 @@ class Home extends React.Component{
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <img src={sutdLogo} alt="SUTD Logo"></img>
               <ul class="navbar-nav ml-auto">
-                <Link to="/form"> <li class="nav-item"> <a class="nav-link" href="#home">HOME</a> </li> </Link>
-                <Link to="/form"> <li class="nav-item"> <a class="nav-link" href="#form">FORM</a> </li> </Link>
-                <Link to="/form"> <li class="nav-item"> <a class="nav-link" href="#contact">CONTACT</a> </li> </Link>
+                <Link to="/form"> <li class="nav-item"> <a class="nav-link">HOME</a> </li> </Link>
+                <Link to="/form"> <li class="nav-item"> <a class="nav-link">FORM</a> </li> </Link>
+                <Link to="/form"> <li class="nav-item"> <a class="nav-link">CONTACT</a> </li> </Link>
                 <Link to="/studentMap"> <li class="nav-item"> <a class="nav-link" href="#contact">MAP ALLOCATION</a> </li> </Link>
                 <Link to="/changePassword"> <li class="nav-item"> <a class="nav-link" href="#contact">PASSWORD SETTING</a> </li> </Link>
                 <Link to="/"> <li class="nav-item"> <a class="nav-link" href="#contact">LOGOUT</a> </li> </Link>
@@ -71,7 +72,7 @@ class Home extends React.Component{
 
         {/* Reset password */}
         <body className="Header">
-          <h3 class="title">Reset Password</h3>
+          <h3 class="index">Reset Password</h3>
           <form action="http://localhost/resetPassword.php" method="post">
             
               <TextField
@@ -106,9 +107,13 @@ class Home extends React.Component{
                   variant='outlined'
               /><br/> <br/>
 
-              <button type = "submit" id="submit" name= "submitform" variant='contained' style={{width:'100%'}}>
-                  Password Changed
-              </button>
+              <Button 
+                type = "submit" 
+                id="submit" 
+                name= "submitform" 
+                variant='contained' 
+                style={{width:'100%'}}
+              >Password Changed</Button>
 
           </form>
           <br/>
