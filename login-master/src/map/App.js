@@ -49,6 +49,9 @@ export default class App extends React.Component{
                 <Title>
                     SUTD Capstone Campus Map
                 </Title>
+                <Title>
+                  Admin
+                </Title>
                 <AppWrapper>
                     <Link to="/adminAddAccount">
                       <button>Add Admin</button>
