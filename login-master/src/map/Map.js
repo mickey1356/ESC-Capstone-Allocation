@@ -1,5 +1,5 @@
 import React from 'react';
-import L, { Bounds, popup } from 'leaflet';
+import L, { Bounds, popup,} from 'leaflet';
 import styled from 'styled-components';
 import 'leaflet/dist/leaflet.css';
 import '@geoman-io/leaflet-geoman-free';
@@ -58,7 +58,7 @@ export default class Maps extends React.Component{
     handleChange(e){
         //this.setState({[evt.target.name]: evt.target.value})
         this.setState({
-            [e.target.name]: e.target.name === 'width' || 'height' ? parseInt(e.target.value) : e.target.value,
+            [e.target.name]: e.target.name === 'width' || 'height' ? parseInt(e.target.value) : e.target.value
             });
 
     }
@@ -66,23 +66,26 @@ export default class Maps extends React.Component{
         this.setState({[evt.target.name]: evt.target.value});
     }
     handleSubmit = event => {
-        event.preventDefault()
-        console.log(this.state)
-        try{
-            this.setState({
-                dimensions:{
-                    ...this.state.dimensions, [this.state.boothID]:
-                    [[this.state.dimensions[this.state.boothID][0][0], this.state.dimensions[this.state.boothID][0][1]], [this.state.width, this.state.height]]
-                }}, () => {
-                    this.addProduct(this.state.boothID);
-                    console.log(this.state.dimensions[this.state.boothID])
-                  });
+        event.preventDefault();
+        if(isNaN(this.state.width)|| isNaN(this.state.height)){
+            alert("Please check inputs");
         }
-        catch{
-            alert("Please Check Inputs");
+        else{
+            try{
+                this.setState({
+                    dimensions:{
+                        ...this.state.dimensions, [this.state.boothID]:
+                        [[this.state.dimensions[this.state.boothID][0][0], this.state.dimensions[this.state.boothID][0][1]], [this.state.width, this.state.height]]
+                    }}, () => {
+                        this.addProduct2(this.state.boothID);
+                        console.log(this.state.dimensions[this.state.boothID])
+                        });
+                        window.location.reload(false);
+            }
+            catch{
+                alert("Please Check Inputs");
+            }
         }
-
-
     }
     handleSubmit2 = event =>{
         event.preventDefault();
@@ -110,8 +113,16 @@ export default class Maps extends React.Component{
         .then(this.getProducts)
         .then(alert("Updated Successfully"))
         .catch(err => console.error(err))
+    };
+    addProduct2(boothno){
+        fetch(`http://localhost:3535/registration/update2?id="${boothno}"&width=${this.state.dimensions[boothno][1][0]}&height=${this.state.dimensions[boothno][1][1]}&PosX=${this.state.dimensions[boothno][0][0]}&PosY=${this.state.dimensions[boothno][0][1]}`)
+        .then(response => response.json())
+        .then(this.getProducts)
+        .then(alert("Updated Successfully"))
+        .catch(err => console.error(err))
 
     };
+
 
     componentDidMount(){
         this.getProducts();
@@ -145,11 +156,12 @@ export default class Maps extends React.Component{
                 // this.setState({oldlat: ((dimensions[key][0][1]/132)*91)});
 
                 // the database will now store the exact positions
+                //console.log(dimensions[key][3][0]);
                 this.setState({newlong: dimensions[key][0][0] + dimensions[key][3][0]});
                 this.setState({newlat: dimensions[key][0][1] + dimensions[key][3][1]});
                 this.setState({oldlong: dimensions[key][0][0]});
                 this.setState({oldlat: dimensions[key][0][1]});
-
+              
                 // set the colour here
                 const cat = dimensions[key][4];
                 let use_colour;
@@ -169,8 +181,11 @@ export default class Maps extends React.Component{
 
                 //this.map.addLayer(L.rectangle([[-oldlat, oldlong], [-newlat, newlong]], {pmIgnore: false}));
                 //var booth = L.rectangle([[-oldlat, oldlong], [-newlat, newlong]], {pmIgnore: false});
-                this.setState({booth: L.rectangle([[-this.state.oldlat, this.state.oldlong], [-this.state.newlat, this.state.newlong]], {color: use_colour, pmIgnore: false})});
+                //console.log(this.state.oldlat, this.state.oldlong, this.state.newlat, this.state.newlong);
+                this.setState({booth: L.rectangle([[-this.state.oldlat, this.state.oldlong], [-this.state.newlat, this.state.newlong]], {color: use_colour, pmIgnore: false}).bindTooltip(key, {permanent: true, direction: 'center', className: 'popup', displayColors: false})});
                 //var booth2 = L.rectangle([[-67.12121212121212, 26.484848],[-57.469,42.5]]).addTo(this.map);
+                
+                
                 this.state.booth.pm.enable({
                     allowSelfIntersection: false,
                 });
@@ -296,7 +311,7 @@ export default class Maps extends React.Component{
                         ...this.state.dimensions, [this.state.boothno]:
                         [[-1,-1], [this.state.dimensions[this.state.boothno][1][0], this.state.dimensions[this.state.boothno][1][1]]]
                     }}, () => {
-                        this.addProduct(this.state.boothno);
+                        this.addProduct2(this.state.boothno);
                       });
                 window.location.reload(false);
                 //this.setState({notallocated: this.state.notallocated.concat(this.state.boothno)});
@@ -333,7 +348,7 @@ export default class Maps extends React.Component{
                     </label>
                     <input
                     type="text" name="height" id="height" onChange={this.handleChange}/>
-                    <button type="submit" id="changebtn">Add Booth to Map</button>
+                    <button type="submit" id="changebtn">Resize Booth on Map</button>
                 </form>
                 <form onSubmit = {this.handleSubmit2} >
                     <label>

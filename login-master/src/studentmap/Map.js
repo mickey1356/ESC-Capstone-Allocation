@@ -171,7 +171,7 @@ export default class Maps extends React.Component{
                 //this.map.addLayer(L.rectangle([[-oldlat, oldlong], [-newlat, newlong]], {pmIgnore: false}));
                 //var booth = L.rectangle([[-oldlat, oldlong], [-newlat, newlong]], {pmIgnore: false});
                 console.log(this.state.oldlat, this.state.oldlong, this.state.newlat, this.state.newlong);
-                this.setState({booth: L.rectangle([[-this.state.oldlat, this.state.oldlong], [-this.state.newlat, this.state.newlong]], {color: use_colour, pmIgnore: false})});
+                this.setState({booth: L.rectangle([[-this.state.oldlat, this.state.oldlong], [-this.state.newlat, this.state.newlong]], {color: use_colour, pmIgnore: false}).bindTooltip(key, {permanent: true, direction: 'center', className: 'popup', displayColors: false})});
                 //var booth2 = L.rectangle([[-67.12121212121212, 26.484848],[-57.469,42.5]]).addTo(this.map);
                 this.state.booth.pm.enable({
                     allowSelfIntersection: false,
