@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
-import sutdLogo from "./imageFile/sutdLogo.png";
+import sutdLogo from "../imageFile/sutdLogo.png";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import emailjs from 'emailjs-com';

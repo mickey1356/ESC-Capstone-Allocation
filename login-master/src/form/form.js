@@ -1,7 +1,7 @@
 import React from "react";
 import "./styleform.css";
 import "bootstrap/dist/css/bootstrap.css";
-import sutdLogo from "./imageFile/sutdLogo.png";
+import sutdLogo from "../imageFile/sutdLogo.png";
 import { Link } from "react-router-dom";
 import FadeIn from "react-fade-in";
 import Lottie from "react-lottie";
@@ -13,6 +13,7 @@ import * as doneData from "./loadingFile/doneloading";
 const initialState = {
   id: "",
   groupName: "",
+  prototype: "",
   category: "",
   company: "",
   width: "",
@@ -64,9 +65,9 @@ export default class form extends React.Component {
           this.setState({ loading: true });
           setTimeout(() => {
             this.setState({ done: true });
-          }, 700);
+          }, 500);
         });
-    }, 600);
+    }, 400);
   }
 
   //Validate form input
@@ -85,6 +86,7 @@ export default class form extends React.Component {
     //error messages
     let idError = "";
     let groupNameError = "";
+    let prototypeError = "";
     let categoryError = "";
     let companyError = "";
     let showcaseSpaceError = ""
@@ -95,7 +97,8 @@ export default class form extends React.Component {
 
     if (!this.state.id) idError = "Group ID cannot be empty";
     if (!this.state.groupName) groupNameError = "Group Name cannot be empty";
-    if (!this.state.category) categoryError = "Category cannot be empty";
+    if (!this.state.prototype) prototypeError = "Category must be selected";
+    if (!this.state.category) categoryError = "Category must be selected";
     if (!this.state.company) companyError = "Company cannot be empty";
     if (!this.state.width || !this.state.breadth || !this.state.height)  showcaseSpaceError = "Showcase space cannot be empty";
     if (!this.state.sizeNweight) sizeNweightError = "Size and weight cannot be empty";
@@ -104,8 +107,8 @@ export default class form extends React.Component {
     if (!this.state.otherRequest) otherRequestError = "Other requests cannot be empty";
     if (this.state.otherRequest > 20) otherRequestError = "Request message exceeds 20 words"
 
-    if (idError || groupNameError || categoryError || companyError || showcaseSpaceError || sizeNweightError || powerpointsError || pedestalError || otherRequestError) {
-      this.setState({idError, groupNameError, categoryError, companyError, showcaseSpaceError, sizeNweightError, powerpointsError, pedestalError, otherRequestError }); //setting the object here
+    if (idError || groupNameError || prototypeError || categoryError || companyError || showcaseSpaceError || sizeNweightError || powerpointsError || pedestalError || otherRequestError) {
+      this.setState({idError, groupNameError, prototypeError, categoryError, companyError, showcaseSpaceError, sizeNweightError, powerpointsError, pedestalError, otherRequestError }); //setting the object here
       return false;
     }
     return true;
@@ -238,8 +241,34 @@ export default class form extends React.Component {
                       </select>
                     </div>
                   </div>
+                  <div style={{ fontSize: 12, color: "red" }}>
+                    {this.state.prototypeError}
+                  </div>
+
 
                   <div class="input_field">
+                    <label>Category:</label>
+                    <div className="custom_select">
+                      <select name="category" id="category" ref="category">
+                        <option value="">Select</option>
+                        <option value="Agriculture, Food and Natural Resources">Agriculture, Food and Natural Resources</option>
+                        <option value="Architecture and Construction"> Architecture and Construction</option>
+                        <option value="Business Management and Administration">Business Management and Administration</option>
+                        <option value="Cybersecurity">Cybersecurity</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Government and Public Administration">Government and Public Administration</option>
+                        <option value="Health Science">Health Science</option>
+                        <option value="Hospitality and Tourism">Hospitality and Tourism</option>
+                        <option value="Marketing, Sales and Service">Marketing, Sales and Service</option>
+                        <option value="Transportation, Distribution and Logistics">Transportation, Distribution and Logistics</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div style={{ fontSize: 12, color: "red" }}>
+                    {this.state.categoryError}
+                  </div>
+
+                  {/* <div class="input_field">
                     <label>Category:</label>
                     <input 
                       type="text" 
@@ -254,7 +283,7 @@ export default class form extends React.Component {
                   </div>
                   <div style={{ fontSize: 12, color: "red" }}>
                     {this.state.categoryError}
-                  </div>
+                  </div> */}
 
                   <div class="input_field">
                     <label>Company:</label>

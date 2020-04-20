@@ -366,7 +366,7 @@ export default class Maps extends React.Component{
                             type="submit" 
                             id="changebtn"
                             class="btn"
-                        >Add Booth to Map</button>
+                        >Resize Booth on Map</button>
                     </div>
                 </form>
 

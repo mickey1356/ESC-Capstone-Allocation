@@ -4,7 +4,7 @@ import "./App.css";
 import Maps from "./Map";
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-import sutdLogo from "./imageFile/sutdLogo.png";
+import sutdLogo from "../imageFile/sutdLogo.png";
 
 // const run = require('./allocate_db.js');
 // import {run} from './allocate_db';
@@ -78,7 +78,7 @@ export default class App extends React.Component{
           <AppWrapper>
             <form action="http://localhost/exportDatabase/exportDatabase.php" method="post">
               <div class="input_field">
-                <label>Student's form application: </label>
+                <label>Student's Form Application: </label>
                   <button
                     type="button"
                     id="accessdb"
@@ -87,10 +87,10 @@ export default class App extends React.Component{
                       e.preventDefault();
                       window.location.href='http://localhost:3535/registration';
                     }}
-                  > Access database</button>
+                  > Access Database</button>
                   <input 
                     type="submit" 
-                    value="Export to excel" 
+                    value="Export to Excel" 
                     class="btn" 
                     id="submitForm" 
                     onChange={this.handleChange}
@@ -101,12 +101,12 @@ export default class App extends React.Component{
 
             <form onSubmit={this.handleSubmit}>
               <div class="input_field">
-                <label>Allocate project booths:</label>
+                <label>Allocate Project Booths:</label>
                 <button 
                   type="submit" 
                   id="runalgo" 
                   class="runalgo"
-                >Run algorithm</button>
+                >Run Algorithm</button>
               </div>
             </form>
 

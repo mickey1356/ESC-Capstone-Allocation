@@ -4,7 +4,7 @@ import "./App.css";
 import Maps from "./Map";
 import {Link} from 'react-router-dom'
 import styled from 'styled-components';
-import sutdLogo from "./imageFile/sutdLogo.png";
+import sutdLogo from "../imageFile/sutdLogo.png";
 
 // const run = require('./allocate_db.js');
 // import {run} from './allocate_db';
@@ -65,9 +65,7 @@ export default class App extends React.Component{
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <img src={sutdLogo} alt="SUTD Logo"></img>
                         <ul class="navbar-nav ml-auto">
-                        <Link to="/form"> <li class="nav-item"> <a class="nav-link">HOME</a> </li> </Link>
                         <Link to="/form"> <li class="nav-item"> <a class="nav-link">FORM</a> </li> </Link>
-                        <Link to="/form"> <li class="nav-item"> <a class="nav-link">CONTACT</a> </li> </Link>
                         <Link to="/studentMap"> <li class="nav-item"> <a class="nav-link" href="#contact">MAP ALLOCATION</a> </li> </Link>
                         <Link to="/changePassword"> <li class="nav-item"> <a class="nav-link" href="#contact">PASSWORD SETTING</a> </li> </Link>
                         <Link to="/"> <li class="nav-item"> <a class="nav-link" href="#contact">LOGOUT</a> </li> </Link>
