@@ -44,13 +44,13 @@ class Home extends React.Component{
         <section id="nav-bar">
 
           <nav class="navbar navbar-expand-lg navbar-light">
-            <button 
-              class="navbar-toggler" 
-              type="button" 
-              data-toggle="collapse" 
-              data-target="#navbarSupportedContent" 
-              aria-controls="navbarSupportedContent" 
-              aria-expanded="false" 
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
               aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -72,11 +72,11 @@ class Home extends React.Component{
         <body className="Header">
           <h3 class="index">Reset Password</h3>
           <form action="http://localhost/resetPassword.php" method="post">
-            
+
               <TextField
                   id="studentID"
-                  name="studentID" 
-                  type="studentID" 
+                  name="studentID"
+                  type="studentID"
                   variant='outlined'
                   placeholder="Student ID"
                   value={this.state.studentID}
@@ -105,11 +105,11 @@ class Home extends React.Component{
                   variant='outlined'
               /><br/> <br/>
 
-              <Button 
-                type = "submit" 
-                id="submit" 
-                name= "submitform" 
-                variant='contained' 
+              <Button
+                type = "submit"
+                id="submit"
+                name= "submitform"
+                variant='contained'
                 style={{width:'100%'}}
               >Password Changed</Button>
 
