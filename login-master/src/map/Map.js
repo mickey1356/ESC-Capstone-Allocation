@@ -124,7 +124,7 @@ export default class Maps extends React.Component{
                 this.setState({
                     dimensions:{
                         ...this.state.dimensions, [this.state.boothID]:
-                        [[this.state.dimensions[this.state.boothID][0][0], this.state.dimensions[this.state.boothID][0][1]], [this.state.width, this.state.height], [aw, ah]]
+                        [[this.state.dimensions[this.state.boothID][0][0], this.state.dimensions[this.state.boothID][0][1]], [aw, ah], [this.state.width, this.state.height]]
                     }}, () => {
                         this.addProduct(this.state.boothID);
                         console.log(this.state.dimensions[this.state.boothID])
