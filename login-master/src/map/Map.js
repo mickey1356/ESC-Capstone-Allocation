@@ -69,26 +69,73 @@ export default class Maps extends React.Component{
     }
     handleSubmit = event => {
         event.preventDefault();
-        if(isNaN(this.state.width)|| isNaN(this.state.height)){
+        if(isNaN(this.state.width) || isNaN(this.state.height)){
             alert("Please check inputs");
         }
         else{
             try{
+                const L1BB_WIDTH = 611;
+                const L1BB_HEIGHT = 640;
+                const L1_OFFX = 86.57;
+                const L1_OFFY = 16.75;
+
+                const L2BB_WIDTH = 913;
+                const L2BB_HEIGHT = 524;
+                const L2_OFFX = 36.03;
+                const L2_OFFY = 258.25;
+
+                const IM_WIDTH = 1191;
+                const IM_HEIGHT = 1684;
+                const ACTUAL_WIDTH = 298;
+                const ACTUAL_HEIGHT = 421;
+
+                let y = this.state.dimensions[this.state.boothID][0][1];
+                let iw = this.state.width;
+                let ih = this.state.height;
+
+                console.log(iw, ih);
+
+                let imw, imh;
+
+                if (y > 250) {
+                    // level 2
+                    const w = L2BB_WIDTH/124 * iw;
+                    const h = L2BB_HEIGHT/81 * ih;
+
+                    imw = w/IM_WIDTH * ACTUAL_WIDTH;
+                    imh = h/IM_HEIGHT * ACTUAL_HEIGHT;
+
+                } else {
+                    // level 1
+                    const w = L1BB_WIDTH/130 * iw;
+                    const h = L1BB_HEIGHT/134 * ih;
+
+                    imw = w/IM_WIDTH * ACTUAL_WIDTH;
+                    imh = h/IM_HEIGHT * ACTUAL_HEIGHT;
+
+                }
+                console.log(imw, imh);
+
+                const aw = Math.round((imw + Number.EPSILON) * 100) / 100;
+                const ah = Math.round((imh + Number.EPSILON) * 100) / 100;
+
+                console.log(aw, ah);
+
                 this.setState({
                     dimensions:{
                         ...this.state.dimensions, [this.state.boothID]:
-                        [[this.state.dimensions[this.state.boothID][0][0], this.state.dimensions[this.state.boothID][0][1]], [this.state.width, this.state.height]]
+                        [[this.state.dimensions[this.state.boothID][0][0], this.state.dimensions[this.state.boothID][0][1]], [this.state.width, this.state.height], [aw, ah]]
                     }}, () => {
-                        this.addProduct2(this.state.boothID);
+                        this.addProduct(this.state.boothID);
                         console.log(this.state.dimensions[this.state.boothID])
                         });
                         window.location.reload(false);
-                        
+
             }
             catch{
                 alert("Please Check Inputs");
             }
-            
+
         }
     }
     handleSubmit2 = event =>{
@@ -165,7 +212,7 @@ export default class Maps extends React.Component{
                 this.setState({newlat: dimensions[key][0][1] + dimensions[key][3][1]});
                 this.setState({oldlong: dimensions[key][0][0]});
                 this.setState({oldlat: dimensions[key][0][1]});
-              
+
                 // set the colour here
                 const cat = dimensions[key][4];
                 let use_colour;
@@ -188,8 +235,8 @@ export default class Maps extends React.Component{
                 //console.log(this.state.oldlat, this.state.oldlong, this.state.newlat, this.state.newlong);
                 this.setState({booth: L.rectangle([[-this.state.oldlat, this.state.oldlong], [-this.state.newlat, this.state.newlong]], {color: use_colour, pmIgnore: false}).bindTooltip(key, {permanent: true, direction: 'center', className: 'popup', displayColors: false})});
                 //var booth2 = L.rectangle([[-67.12121212121212, 26.484848],[-57.469,42.5]]).addTo(this.map);
-                
-                
+
+
                 this.state.booth.pm.enable({
                     allowSelfIntersection: false,
                 });
@@ -341,8 +388,8 @@ export default class Maps extends React.Component{
                     <div class="input">
                         <label>Booth ID:</label>
                         <input
-                            type="text" 
-                            name="boothID" 
+                            type="text"
+                            name="boothID"
                             id="boothID"
                             class="data"
                             variant='outlined'
@@ -350,23 +397,23 @@ export default class Maps extends React.Component{
                         />
                         <label>Width (m):</label>
                         <input
-                            type="text" 
-                            name="width" 
-                            id="width" 
+                            type="text"
+                            name="width"
+                            id="width"
                             class="data"
                             variant='outlined'
                             onChange={this.handleChange}
                         />
                         <label>Breadth (m):</label>
                         <input
-                            type="text" 
-                            name="height" 
-                            id="height" 
+                            type="text"
+                            name="height"
+                            id="height"
                             class="data"
                             variant='outlined'
                             onChange={this.handleChange}/>
-                        <button 
-                            type="submit" 
+                        <button
+                            type="submit"
                             id="changebtn"
                             class="btn"
                         >Resize Booth on Map</button>
@@ -377,19 +424,19 @@ export default class Maps extends React.Component{
                     <div class="input">
                         <label>Booth ID: </label>
                         <input
-                            type="text" 
-                            name="boothID2" 
-                            id="boothID2" 
+                            type="text"
+                            name="boothID2"
+                            id="boothID2"
                             onChange={this.handleChange1}
                         />
-                        <button 
-                            type="submit" 
+                        <button
+                            type="submit"
                             id="viewbtn"
                             class="btn"
                         >View Booth on Map</button>
                     </div>
                 </form>
-                
+
                 <label class="input">Booths Yet To Be Allocated: {this.state.notallocated}</label>
 
                 <Wrapper width="512px" height="512px" id="map" />
