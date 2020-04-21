@@ -4,7 +4,7 @@
     if (isset($_POST['submitform'])){   
         ?>
     <script type="text/javascript">
-        window.location = "http://localhost:3000/form";
+        window.location = "http://localhost:3000/map";
     </script>      
         <?php
         }
@@ -36,11 +36,11 @@
             
         //Update password in database
         if(empty($new_password_err) && empty($confirm_password_err)){
-            $sql = "update user_details set password = ? where studentID = ?";
+            $sql = "update admin_details set password = ? where email = ?";
             if($stmt = mysqli_prepare($conn, $sql)){
-                mysqli_stmt_bind_param($stmt, "si", $param_password, $param_studentID);
+                mysqli_stmt_bind_param($stmt, "ss", $param_password, $param_email);
                 $param_password = trim($_POST["new_password"]);
-                $param_studentID = trim($_POST["studentID"]);
+                $param_email = trim($_POST["email"]);
                 if(mysqli_stmt_execute($stmt)){
                     echo "Password updated successfully";
                 } else{

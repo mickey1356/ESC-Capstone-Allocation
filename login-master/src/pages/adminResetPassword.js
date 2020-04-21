@@ -1,12 +1,12 @@
 import React from 'react';
-import './styleform.css';
+import './style.css';
 import sutdLogo from "../imageFile/sutdLogo.png";
 import { Link } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 
-class Home extends React.Component{
+class adminResetPassword extends React.Component{
   constructor(){
     super();
     this.state = {
@@ -19,8 +19,8 @@ class Home extends React.Component{
     };
   }
 
-  handleStudentIDChange = evt => {
-    this.setState({ studentID: evt.target.value });
+  handleEmailChange = evt => {
+    this.setState({ email: evt.target.value });
   };
 
   handlePasswordChange = evt => {
@@ -58,10 +58,10 @@ class Home extends React.Component{
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <img src={sutdLogo} alt="SUTD Logo"></img>
               <ul class="navbar-nav ml-auto">
-                <Link to="/form"> <li class="nav-item"> <a class="nav-link">FORM</a> </li> </Link>
-                <Link to="/studentMap"> <li class="nav-item"> <a class="nav-link" href="#contact">MAP ALLOCATION</a> </li> </Link>
-                <Link to="/changePassword"> <li class="nav-item"> <a class="nav-link" href="#contact">PASSWORD SETTING</a> </li> </Link>
-                <Link to="/"> <li class="nav-item"> <a class="nav-link" href="#contact">LOGOUT</a> </li> </Link>
+                <Link to="/map"> <li class="nav-item"> <a class="nav-link" href="#contact">MAP ALLOCATION</a> </li> </Link>
+                <Link to="/adminAddAccount"> <li class="nav-item"> <a class="nav-link" href="#contact">ADD ADMIN ACCOUNT</a> </li> </Link>
+                <Link to="/adminResetPassword"> <li class="nav-item"> <a class="nav-link" href="#contact">PASSWORD SETTING</a> </li> </Link>
+                <Link to="/adminLogin"> <li class="nav-item"> <a class="nav-link" href="#contact">LOGOUT</a> </li> </Link>
               </ul>
             </div>
 
@@ -71,16 +71,16 @@ class Home extends React.Component{
         {/* Reset password */}
         <body className="Header">
           <h3 class="index">Reset Password</h3>
-          <form action="http://localhost/resetPassword.php" method="post">
+          <form action="http://localhost/adminResetPassword.php" method="post">
             
               <TextField
-                  id="studentID"
-                  name="studentID" 
-                  type="studentID" 
+                  id="email"
+                  name="email" 
+                  type="email" 
                   variant='outlined'
-                  placeholder="Student ID"
-                  value={this.state.studentID}
-                  onChange={this.handleStudentIDChange}
+                  placeholder="Email"
+                  value={this.state.email}
+                  onChange={this.handleEmailChange}
               /><br/> <br/>
 
               <TextField
@@ -121,4 +121,4 @@ class Home extends React.Component{
   }
 }
 
-export default Home;
+export default adminResetPassword;

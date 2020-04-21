@@ -83,12 +83,10 @@ export default class Maps extends React.Component{
                         console.log(this.state.dimensions[this.state.boothID])
                         });
                         window.location.reload(false);
-                        
             }
             catch{
                 alert("Please Check Inputs");
             }
-            
         }
     }
     handleSubmit2 = event =>{
@@ -246,7 +244,6 @@ export default class Maps extends React.Component{
                             }}, () => {
                                 this.addProduct(this.state.boothno);
                             });
-                        window.location.reload(false);
 
 
 

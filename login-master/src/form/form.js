@@ -97,8 +97,8 @@ export default class form extends React.Component {
 
     if (!this.state.id) idError = "Group ID cannot be empty";
     if (!this.state.groupName) groupNameError = "Group Name cannot be empty";
-    if (!this.state.prototype) prototypeError = "Category must be selected";
-    if (!this.state.category) categoryError = "Category must be selected";
+    if (this.state.prototype==="select") prototypeError = "Prototype must be selected";
+    if (this.state.category==="select") categoryError = "Category must be selected";
     if (!this.state.company) companyError = "Company cannot be empty";
     if (!this.state.width || !this.state.breadth || !this.state.height)  showcaseSpaceError = "Showcase space cannot be empty";
     if (!this.state.sizeNweight) sizeNweightError = "Size and weight cannot be empty";
@@ -168,9 +168,9 @@ export default class form extends React.Component {
                   <li class="nav-item"> <a class="nav-link" href="#home">HOME</a> </li>
                   <li class="nav-item"> <a class="nav-link" href="#form">FORM</a> </li>
                   <li class="nav-item"> <a class="nav-link" href="#contact">CONTACT</a> </li>
-                  <Link to="/studentMap"> <li class="nav-item"> <a class="nav-link" href="#contact">MAP ALLOCATION</a> </li> </Link>
-                  <Link to="/changePassword"> <li class="nav-item"> <a class="nav-link" href="#contact">PASSWORD SETTING</a> </li> </Link>
-                  <Link to="/"> <li class="nav-item"> <a class="nav-link" href="#contact">LOGOUT</a> </li> </Link>
+                  <Link to="/studentMap"> <li class="nav-item"> <a class="nav-link" href="#contact" id="mapAllocation">MAP ALLOCATION</a> </li> </Link>
+                  <Link to="/changePassword"> <li class="nav-item"> <a class="nav-link" href="#contact" id="btnChangePw">PASSWORD SETTING</a> </li> </Link>
+                  <Link to="/"> <li class="nav-item"> <a class="nav-link" href="#contact" id="btnLogout">LOGOUT</a> </li> </Link>
                 </ul>
               </div>
 
@@ -234,7 +234,7 @@ export default class form extends React.Component {
                     <label>Type of Prototype:</label>
                     <div className="custom_select">
                       <select name="prototype" id="prototype" ref="prototype">
-                        <option value="">Select</option>
+                        <option value="select">Select</option>
                         <option value="web-based">Web-based</option>
                         <option value="software">Software</option>
                         <option value="1:1 prototype">1:1 Prototype</option>
@@ -250,7 +250,7 @@ export default class form extends React.Component {
                     <label>Category:</label>
                     <div className="custom_select">
                       <select name="category" id="category" ref="category">
-                        <option value="">Select</option>
+                        <option value="select">Select</option>
                         <option value="Agriculture, Food and Natural Resources">Agriculture, Food and Natural Resources</option>
                         <option value="Architecture and Construction"> Architecture and Construction</option>
                         <option value="Business Management and Administration">Business Management and Administration</option>
