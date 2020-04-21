@@ -376,8 +376,8 @@ Allocator.prototype.allocate = function(percent) {
 		}
 	}
 
-	console.log(this.rows, this.cols);
-	console.log(this.rows2, this.cols2);
+	// console.log(this.rows, this.cols);
+	// console.log(this.rows2, this.cols2);
 
 	// const x = 611/130 * 64;
 	// const y = 640/134 * 81;

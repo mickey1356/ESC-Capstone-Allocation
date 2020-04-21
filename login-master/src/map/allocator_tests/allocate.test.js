@@ -4,9 +4,9 @@ const {Fuzzer} = require("./fuzzer.js");
 
 const fuzzer = new Fuzzer();
 
-const BOOTH_TC_CNT = 10;
-const PATH_TC_CNT = 10;
-const ALLOCATOR_TC_CNT = 10;
+const BOOTH_TC_CNT = 50;
+const PATH_TC_CNT = 50;
+const ALLOCATOR_TC_CNT = 50;
 
 describe("booth tests", () => {
     let booths_to_test = fuzzer.generate_booths_json(BOOTH_TC_CNT, 1, 1, 10, 10, 10);
@@ -57,13 +57,19 @@ describe("allocator tests", () => {
 
     let booth_cnts = [];
     for (let i = 0; i < ALLOCATOR_TC_CNT; i++) {
-        let bcnt = fuzzer.random(1, 100);
+        let bcnt = fuzzer.random(1, 50);
         let booths = fuzzer.generate_booths_json(bcnt, 1, 1, 10, 10, 10);
         booth_cnts.push([booths, bcnt]);
     }
 
-    let space_free_grids = fuzzer.generate_random_grids(ALLOCATOR_TC_CNT, 5, 5, 20, 20);
+    let allocate_booths = [];
+    for (let i = 0; i < ALLOCATOR_TC_CNT; i++) {
+        let bcnt = fuzzer.random(1, 30);
+        let booths = fuzzer.generate_booths_json(bcnt, 1, 1, 10, 10, 10);
+        allocate_booths.push([booths, bcnt]);
+    }
 
+    let space_free_grids = fuzzer.generate_random_grids(ALLOCATOR_TC_CNT, 5, 5, 20, 20);
 
     test("AllocatorTest 1-0: allocator gets correct dimensions of SPACE1 and SPACE2", () => {
         let a = new Allocator();
@@ -123,20 +129,48 @@ describe("allocator tests", () => {
 
     test("AllocatorTest 5-0: assign_booth assigns booth to the correct grid", () => {
         let a = new Allocator();
-        let eg1 = fuzzer.generate_empty_grid(6, 6);
-        let eg2 = fuzzer.generate_empty_grid(6, 6);
-        a.load_grid(1, eg1);
-        a.load_grid(2, eg2);
+        let eg = fuzzer.generate_empty_grid(6, 6);
+        a.load_grid(1, eg);
+        a.load_grid(2, eg);
         let b = fuzzer.generate_booth(4, 4, 5, 5, 10);
         let booth = new Booth(b["id"], b["groupName"], b["category"], b["width"], b["height"]);
 
-        expect(a.space_free(1, 1, 1, booth["width"], booth["height"])).toBe(true);
-        expect(a.space_free(2, 1, 1, booth["width"], booth["height"])).toBe(true);
+        expect(a.space_free(1, 1, 1, booth.dimX, booth.dimY)).toBe(true);
+        expect(a.space_free(2, 1, 1, booth.dimX, booth.dimY)).toBe(true);
 
-        // a.assign_booth()
+        // assign booth to level 1
+        a.assign_booth(1, booth, 1, 1);
+
+        // i should expect space_free on level 1 to be false and space_free on level 2 to be true
+        expect(a.space_free(1, 1, 1, booth.dimX, booth.dimY)).toBe(false);
+        expect(a.space_free(2, 1, 1, booth.dimX, booth.dimY)).toBe(true);
+
+        // reload the grid
+        a.load_grid(1, eg);
+        a.load_grid(2, eg);
+
+        // assign booth to level 2 this time
+        a.assign_booth(2, booth, 1, 1);
+        expect(a.space_free(1, 1, 1, booth.dimX, booth.dimY)).toBe(true);
+        expect(a.space_free(2, 1, 1, booth.dimX, booth.dimY)).toBe(false);
+
+
     });
 
-    test("allocate returns an obj that covers all the booths", () => {
+    test.each(allocate_booths)("AllocatorTest 6-%#: allocate returns an obj that covers all the booths", (booths, cnt) => {
+        let a = new Allocator();
+        a.load_booths_obj(booths);
+        expect(a.num_booths).toEqual(cnt);
 
+        let eg = fuzzer.generate_empty_grid(100, 100);
+        a.load_grid(1, eg);
+        a.load_grid(2, eg);
+
+        a.allocate(60);
+
+        for (let booth of booths) {
+            let id = booth["id"];
+            expect(a.f_allocation.hasOwnProperty(id)).toBe(true);
+        }
     });
 });
