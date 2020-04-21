@@ -69,6 +69,8 @@ Path.prototype.build_path_spiralout = function(initial_x, initial_y, initial_dx,
 		}
 		steps++;
 	}
+
+	this.path = this.path.slice(0, this.rows * this.cols);
 }
 
 Path.prototype.build_path_verticalout = function(initial_col) {
@@ -83,7 +85,7 @@ Path.prototype.build_path_verticalout = function(initial_col) {
 	while (true) {
 		col += step;
 		if (col >= this.cols || col < 0) {
-			if (flag == true) {
+			if (flag) {
 				break;
 			} else {
 				flag = true;
@@ -395,3 +397,4 @@ Allocator.prototype.allocate = function(percent) {
 
 exports.Allocator = Allocator;
 exports.Path = Path;
+exports.Booth = Booth;
