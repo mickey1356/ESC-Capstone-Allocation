@@ -20,24 +20,19 @@
                     if(mysqli_stmt_fetch($stmt)){
                         $password = trim($_POST["password"]);
                         if($password == $updatedPassword){
-                            //Password is correct
                             $bool = "true";
                         } else{
-                            //Display an error message if password is not valid
-                            $password_err = "The password you entered was not valid.";
+                            echo "The password you entered was not valid.";
                         }
                     }
                 } else{
-                    //Display an error message if username doesn't exist
-                    $email_err = "No account found with that email.";
+                    echo "No account found with that email.";
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
-            //Close statement
             mysqli_stmt_close($stmt);
         }
-        //Close connection
         mysqli_close($conn);
     }
     echo $bool;

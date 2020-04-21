@@ -64,7 +64,8 @@ export default class App extends React.Component{
                 <ul class="navbar-nav ml-auto">
                   <Link to="/map"> <li class="nav-item"> <a class="nav-link" href="#contact">MAP ALLOCATION</a> </li> </Link>
                   <Link to="/adminAddAccount"> <li class="nav-item"> <a class="nav-link" href="#contact">ADD ADMIN ACCOUNT</a> </li> </Link>
-                  <Link to="/adminLogin"> <li class="nav-item"> <a class="nav-link" href="#contact">LOGOUT</a> </li> </Link>
+                  <Link to="/adminResetPassword"> <li class="nav-item"> <a class="nav-link" href="#contact">PASSWORD SETTING</a> </li> </Link>
+                  <Link to="/adminLogin"> <li class="nav-item"> <a class="nav-link" href="#contact" id="btnLogout">LOGOUT</a> </li> </Link>
                 </ul>
               </div>
 

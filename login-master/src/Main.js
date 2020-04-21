@@ -4,6 +4,7 @@ import studentLogin from './pages/studentLogin';
 import studentAddAccount from './pages/studentAddAccount';
 import adminLogin from './pages/adminLogin';
 import adminAddAccount from './pages/adminAddAccount';
+import adminResetPassword from './pages/adminResetPassword';
 import Form from './form/form';
 import changePassword from './form/changePassword';
 import map from './map/App';
@@ -17,6 +18,7 @@ const Main = () => {
       <Route exact path='/studentAddAccount' component={studentAddAccount}></Route>
       <Route exact path='/adminLogin' component={adminLogin}></Route>
       <Route exact path='/adminAddAccount' component={adminAddAccount}></Route>
+      <Route exact path='/adminResetPassword' component={adminResetPassword}></Route>
       <Route exact path='/form' component={Form}></Route>
       <Route exact path='/changePassword' component={changePassword}></Route>
       <Route exact path='/map' component={map}></Route>
