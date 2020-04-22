@@ -289,13 +289,13 @@ Allocator.prototype.allocate = function(percent) {
 			let i = loc[0];
 			let j = loc[1];
 
-			if (this.space_free(level, i, j, booth.dimX + 2, booth.dimY + 2)) {
-				this.assign_booth(level, booth, i + 1, j + 1);
+			if (this.space_free(level, i, j, booth.dimX + 4, booth.dimY + 4)) {
+				this.assign_booth(level, booth, i + 2, j + 2);
 				found = true;
 				break;
-			} else if (this.space_free(level, i, j, booth.dimY + 2, booth.dimX + 2)) {
+			} else if (this.space_free(level, i, j, booth.dimY + 4, booth.dimX + 4)) {
 				booth.flip_dim();
-				this.assign_booth(level, booth, i + 1, j + 1);
+				this.assign_booth(level, booth, i + 2, j + 2);
 				found = true;
 				break;
 			}
@@ -339,60 +339,66 @@ Allocator.prototype.allocate = function(percent) {
 		const iw = this.booths[bid]["dimX"];
 		const ih = this.booths[bid]["dimY"];
 
-		if (level == 1) {
-			const x = L1BB_WIDTH/this.cols * ix;
-			const y = L1BB_HEIGHT/this.rows * iy;
-			const w = L1BB_WIDTH/this.cols * iw;
-			const h = L1BB_HEIGHT/this.rows * ih;
+		if (ix == -1 && iy == -1) {
+			if (level == 1) {
+				const w = L1BB_WIDTH/this.cols * iw;
+				const h = L1BB_HEIGHT/this.rows * ih;
+				const imw = w/IM_WIDTH * ACTUAL_WIDTH;
+				const imh = h/IM_HEIGHT * ACTUAL_HEIGHT;
+				const c = this.roundNum(imw);
+				const d = this.roundNum(imh);
 
-			const imx = x/IM_WIDTH * ACTUAL_WIDTH;
-			const imy = y/IM_HEIGHT * ACTUAL_HEIGHT;
-			const imw = w/IM_WIDTH * ACTUAL_WIDTH;
-			const imh = h/IM_HEIGHT * ACTUAL_HEIGHT;
+				this.f_allocation[bid] = [-1, -1, c, d];
+			} else {
+				const w = L2BB_WIDTH/this.cols2 * iw;
+				const h = L2BB_HEIGHT/this.rows2 * ih;
+				const imw = w/IM_WIDTH * ACTUAL_WIDTH;
+				const imh = h/IM_HEIGHT * ACTUAL_HEIGHT;
+				const c = this.roundNum(imw);
+				const d = this.roundNum(imh);
 
-			const a = this.roundNum(L1_OFFX + imx);
-			const b = this.roundNum(L1_OFFY + imy);
-			const c = this.roundNum(imw);
-			const d = this.roundNum(imh);
+				this.f_allocation[bid] = [-1, -1, c, d];
+			}
 
-			this.f_allocation[bid] = [a, b, c, d];
 		} else {
-			const x = L2BB_WIDTH/this.cols2 * ix;
-			const y = L2BB_HEIGHT/this.rows2 * iy;
-			const w = L2BB_WIDTH/this.cols2 * iw;
-			const h = L2BB_HEIGHT/this.rows2 * ih;
 
-			const imx = x/IM_WIDTH * ACTUAL_WIDTH;
-			const imy = y/IM_HEIGHT * ACTUAL_HEIGHT;
-			const imw = w/IM_WIDTH * ACTUAL_WIDTH;
-			const imh = h/IM_HEIGHT * ACTUAL_HEIGHT;
+			if (level == 1) {
+				const x = L1BB_WIDTH/this.cols * ix;
+				const y = L1BB_HEIGHT/this.rows * iy;
+				const w = L1BB_WIDTH/this.cols * iw;
+				const h = L1BB_HEIGHT/this.rows * ih;
 
-			const a = this.roundNum(L2_OFFX + imx);
-			const b = this.roundNum(L2_OFFY + imy);
-			const c = this.roundNum(imw);
-			const d = this.roundNum(imh);
+				const imx = x/IM_WIDTH * ACTUAL_WIDTH;
+				const imy = y/IM_HEIGHT * ACTUAL_HEIGHT;
+				const imw = w/IM_WIDTH * ACTUAL_WIDTH;
+				const imh = h/IM_HEIGHT * ACTUAL_HEIGHT;
 
-			this.f_allocation[bid] = [a, b, c, d];
+				const a = this.roundNum(L1_OFFX + imx);
+				const b = this.roundNum(L1_OFFY + imy);
+				const c = this.roundNum(imw);
+				const d = this.roundNum(imh);
+
+				this.f_allocation[bid] = [a, b, c, d];
+			} else {
+				const x = L2BB_WIDTH/this.cols2 * ix;
+				const y = L2BB_HEIGHT/this.rows2 * iy;
+				const w = L2BB_WIDTH/this.cols2 * iw;
+				const h = L2BB_HEIGHT/this.rows2 * ih;
+
+				const imx = x/IM_WIDTH * ACTUAL_WIDTH;
+				const imy = y/IM_HEIGHT * ACTUAL_HEIGHT;
+				const imw = w/IM_WIDTH * ACTUAL_WIDTH;
+				const imh = h/IM_HEIGHT * ACTUAL_HEIGHT;
+
+				const a = this.roundNum(L2_OFFX + imx);
+				const b = this.roundNum(L2_OFFY + imy);
+				const c = this.roundNum(imw);
+				const d = this.roundNum(imh);
+
+				this.f_allocation[bid] = [a, b, c, d];
+			}
 		}
 	}
-
-	// console.log(this.rows, this.cols);
-	// console.log(this.rows2, this.cols2);
-
-	// const x = 611/130 * 64;
-	// const y = 640/134 * 81;
-	// const w = 611/130 * 23;
-	// const h = 640/134 * 14;
-	//
-	// const imx = x/1191 * 298;
-	// const imy = y/1684 * 421;
-	// const imw = w/1191 * 298;
-	// const imh = h/1684 * 421;
-	//
-	// const offx = 86.57;
-	// const offy = 16.75;
-	// console.log(offx + imx, offy + imy, offx + imx + imw, offy + imy + imh);
-	// console.log(this.f_allocation);
 }
 
 exports.Allocator = Allocator;
