@@ -1,20 +1,10 @@
 <?php
-
-    //Link to another page
-    if (isset($_POST['submitbtn'])){   
-        ?>
-    <script type="text/javascript">
-        window.location = "http://localhost:3000/map";
-    </script>      
-        <?php
-    }
+    header("Access-Control-Allow-Origin: *");
 
     //Database connection
     $conn = new mysqli('localhost', 'root', 'password', 'capstone_form');
 
-    if($conn->connect_error){
-        die('Connection Failed: '.$conn->connect_error);
-    }else{
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
         $email = $password = "";
         $sqlemail = "select * from admin_details where email = ?";
         $sqlpassword = "select * from admin_details where password = ?";
