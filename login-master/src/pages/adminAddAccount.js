@@ -53,16 +53,33 @@ class createAccount extends Component {
   }
 
   //Activate account by using random password sent to admin's email
-  sendEmail = () => {
+  sendEmail = evt => {
+    //AJAX CALL - asynchronous
+    var email=document.getElementById("email").value;
+    var password=document.getElementById("password").value;
+    var data = new FormData();
+    data.append("email", email);
+    data.append("password", password);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "http://localhost/adminAddAccount.php", false);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log("database updated");
+      }
+    };
+    xhr.send(data);
+
     var template_params = {
       "email": this.state.email,
       "password": this.state.password
     }
-    var service_id = "default_service";
+    var service_id = "gmail";
     var template_id = "addadmin";
     var user_id = "user_CBEFF7EPbL1I4OdtdZnki"
     emailjs.send(service_id, template_id, template_params, user_id);
+    this.props.history.push('/map');
   }
+
 
   render () {
     return (
@@ -98,11 +115,12 @@ class createAccount extends Component {
         {/* Add Admin Account */}
         <body className='Header'>
           <h3 className="index">Add Admin Account</h3>
-          <form action="http://localhost/adminAddAccount.php" onSubmit={this.sendEmail} method="post">
+          <form onSubmit={this.sendEmail}>
             <div className={`form-group ${this.errorClass(this.state.formErrors.email)}`}>
               <TextField
-                type="email" 
+                type="email"
                 name="email" 
+                id="email"
                 variant='outlined'
                 placeholder="Email"
                 value={this.state.email}
@@ -113,8 +131,8 @@ class createAccount extends Component {
             <div>
               <input
                 type="hidden" 
-                className="form-control" 
                 name="password" 
+                id="password"
                 display='none'
                 placeholder="Password"
                 value={this.state.password}
@@ -128,7 +146,8 @@ class createAccount extends Component {
 
             <Button
               type="submit" 
-              name="submitbtn" 
+              name="submitbtn"
+              id="submitbtn"
               disabled={!this.state.formValid} 
               variant='contained' style={{width:'100%'}}
             >Add admin account</Button>

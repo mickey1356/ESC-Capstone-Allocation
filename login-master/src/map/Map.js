@@ -293,6 +293,7 @@ export default class Maps extends React.Component{
                             }}, () => {
                                 this.addProduct(this.state.boothno);
                             });
+                        window.location.reload(false);
 
 
 

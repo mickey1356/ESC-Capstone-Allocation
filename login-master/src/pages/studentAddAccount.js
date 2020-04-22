@@ -69,6 +69,25 @@ class createAccount extends Component {
 
   //Activate account by using random password sent to student's email
   sendEmail = () => {
+    //AJAX CALL - asynchronous
+    var studentID=document.getElementById("studentID").value;
+    var email=document.getElementById("email").value;
+    var groupName=document.getElementById("groupName").value;
+    var password=document.getElementById("password").value;
+    var data = new FormData();
+    data.append("studentID", studentID);
+    data.append("email", email);
+    data.append("groupName", groupName);
+    data.append("password", password);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', "http://localhost/studentAddAccount.php", false);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log("database updated");
+      }
+    };
+    xhr.send(data);
+
     var template_params = {
       "email": this.state.email,
       "groupName": this.state.groupName,
@@ -78,6 +97,7 @@ class createAccount extends Component {
     var template_id = "template_wyiwqdxd";
     var user_id = "user_CBEFF7EPbL1I4OdtdZnki"
     emailjs.send(service_id, template_id, template_params, user_id);
+    this.props.history.push('/form');
   }
 
   render () {
@@ -88,11 +108,12 @@ class createAccount extends Component {
         <header className='Header'>
           <img className="image" src='https://asset-group.github.io/img/logo.png' alt="logo" height='90'/>
           <h3 className="index">Register Student Account</h3>
-          <form action="http://localhost/studentAddAccount.php" onSubmit={this.sendEmail} method="post">
+          <form onSubmit={this.sendEmail}>
             <div className={`form-group ${this.errorClass(this.state.formErrors.studentID)}`}>
               <TextField
                 type="studentID" 
-                name="studentID" 
+                name="studentID"
+                id="studentID"
                 variant='outlined'
                 placeholder="Student ID"
                 value={this.state.studentID}
@@ -103,7 +124,8 @@ class createAccount extends Component {
             <div className={`form-group ${this.errorClass(this.state.formErrors.email)}`}>
               <TextField
                 type="email" 
-                name="email" 
+                name="email"
+                id="email"
                 variant='outlined'
                 placeholder="Email"
                 value={this.state.email}
@@ -115,6 +137,7 @@ class createAccount extends Component {
               <TextField
                 type="groupName" 
                 name="groupName" 
+                id="groupName"
                 variant='outlined'
                 placeholder="Group Name"
                 value={this.state.groupName}
@@ -127,6 +150,7 @@ class createAccount extends Component {
                 type="hidden" 
                 className="form-control" 
                 name="password" 
+                id="password"
                 variant='outlined'
                 placeholder="Password"
                 value={this.state.password}

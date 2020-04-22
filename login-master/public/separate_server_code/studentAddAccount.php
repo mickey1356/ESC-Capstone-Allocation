@@ -1,20 +1,11 @@
 <?php
 
-    //Link to another page
-    if (isset($_POST['submitbtn'])){   
-        ?>
-    <script type="text/javascript">
-        window.location = "http://localhost:3000/";
-    </script>      
-        <?php
-    }
+    header("Access-Control-Allow-Origin: *");
     
     //Database connection
     $conn = new mysqli('localhost', 'root', 'password', 'capstone_form');
 
-    if($conn->connect_error){
-        die('Connection Failed: '.$conn->connect_error);
-    }else{
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
         $groupName = $studentID = $email = $password = "";
         $sqlgroupName = "select * from user_details where groupName = ?";
         $sqlstudentID = "select * from user_details where studentID = ?";
