@@ -34,9 +34,15 @@ in the root directory.
 
 ## Testing
 
-**To run the unit tests**, run
+**To run the unit tests**, navigate to the allocator_tests directory with
+
+`cd src/map/allocator_tests`
+
+and then run
 
 `npm test`
+
+**To run the Selenium tests**, the files are located in the `test` folder in the root directory.
 
 ## Usage
 
